@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  </head>
+ <div th:include="head"></div>
+ <link href="css/original/common2.css" rel="stylesheet"/>
+
+ <div th:inline="text" th:object="${loginForm}" th:errors="*{loginId}" class="alert alert-danger" role="alert">[[${loginId}]]</div>
+  <div th:inline="text" th:object="${loginForm}" th:errors="*{password}" class="alert alert-danger" role="alert">[[${password}]]</div>
+  <div th:if="${msg!=null}" th:inline="text" class="alert alert-danger" role="alert">[[${msg}]]</div>
+<!-- <div th:if="${#fields.hasErrors('loginId')}" class="alert alert-danger" role="alert" th:errors="*{loginId}"></div>
+-->
+
+  <body>
+    <div class="container">
+        	<div class="row">
+    			<div class="col-md-6 col-md-offset-3">
+    				<div class="panel panel-login">
+    					<div class="panel-heading">
+                <h1>Login</h1>
+    					</div>
+    					<div class="panel-body">
+    						<div class="row">
+    							<div class="col-lg-12">
+    							<form th:action="@{/login}" th:object="${loginForm}" method="post" class="form-signin" >
+    									<div class="form-group">
+    										<input type="text" name="loginId"  class="form-control" placeholder="LoginId" th:field="*{loginId}" />
+    									</div>
+    									<div class="form-group">
+    										<input type="password" name="password" id="password" class="form-control" placeholder="Password" />
+    									</div>
+                          <button  class="btn btn-lg btn-primary btn-block btn-signin"  type="submit">Login</button>
+                          </form>
+                          <div class="text-right">
+                            <br/><a href="userCreate.html" class="btn btn-success">register</a>
+                          </div>
+                        </div>
+                      </div>
+                   </div>
+                 </div>
+              </div>
+            </div>
+         </div>
+
+  </body>
+</html>
