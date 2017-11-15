@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+  <head>
+  <title>商品詳細</title>
+  </head>
+
+    <br/><br/><br/><br/>
+
+
+
+    <!-- body -->
+<body>
+    <div class="container">
+
+      <div class="row">
+
+       <form class="col-sm-2 col-sm-offset-8" action="ItemAdd" method="POST" >
+			<input type="hidden" name="item_id" value="" />
+			  <button class=" btn btn-primary" type="submit" name="action" >
+				買い物かごに追加
+				  </button>
+	  </form>
+
+
+     <form class="col-sm-2" action="ItemListAdd" method="POST" >
+     <input type="hidden" name="itemget_id" value="" />
+			<button class="btn btn-success" type="submit" name="action" >
+				ほしい物リストに追加
+			</button>
+		</form>
+
+      </div>
+
+      <br/><br/>
+
+    <div class="container">
+      <div class="panel ">
+        <div class="panel-body">
+      <div class="col-md-6">
+      <img src=""  width="400" height="400"/>
+	      </div>
+	        <div class="col-md-6">
+	          <h2>itemname</h2>
+	          <h4>円</h4>
+	         <br/><br/>
+
+	         </div>
+	      </div>
+	   </div><br/>
+
+    </div>
+  </div>
+<!--
+<%for(ReviewDataBeans review:reviewList) {%>
+   <div class="container">
+        <h4><%=userName.get(review.getId()) %>さんのレビュー<h4>
+
+
+     <div class="panel ">
+       <div class="panel-body">
+     <div class="col-md-6">
+     <img  src="<%="img/" + review.getFileName()%>"  width="400" height="400" />
+     </div>
+       <div class="col-md-6">
+         <h2></h2>
+         <div class="star-rating">
+             <div class="star-rating-front" style="width: 80%">★★★★★</div>
+             <div class="star-rating-back">★★★★★</div>
+        </div>
+        <br/>
+
+
+        </div>
+     </div>
+  </div>
+ <br/>
+<br/>
+-->
+  </body>
+</html>

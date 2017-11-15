@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+  <head>
+  <title>商品一覧</title>
+</head><br/><br/><br/>
+<body>
+
+    <div class="container">
+      <h1><font color="#ff9933">ECサイト</font></h1>
+      <h1 align="center">商品一覧</h1>
+    </div>
+
+  <div class="container">
+    <h4>オススメ商品</h4>
+  	 <div class="row">
+				<div class="col-md-3" th:each="item:${itemList}" >
+					<div class="card">
+						<div class="card-image">
+							<a href="${itemUrl.get(item.getId())}" ><img  th:src="${itemImg.get(item.getId())}" width="260" height="250"/></a>
+						</div>
+						<div class="card-content">
+							<span th:inline="text" class="card-title">[[${item.name}]]</span>
+							 <div th:inline="text">[[${item.price}]]円</div>
+						</div>
+					</div>
+				  </div>
+
+			  </div>
+
+          </div>
+  </body>
+</html>

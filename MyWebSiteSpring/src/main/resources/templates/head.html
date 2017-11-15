@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- <html lang="ja" xmlns:th="http://www.thymeleaf.org">-->
 <meta charset="UTF-8"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- CSS  -->
@@ -29,7 +30,7 @@
       </div>
       <div class="navbar-collapse collapse" >
         <ul class="nav navbar-nav">
-        <li><a href="Index">EC</a></li>
+        <li><a href="index">EC</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -41,14 +42,14 @@
           </ul>
         </li>
 
-     <li>
+     <li th:if="${index!=null}">
       <form  class="navbar-form navbar-right" action="ItemSearchResult">
         <input type="text" name="search_word" class="form-control" placeholder="Search" value="" size="50"/>
         <button type="submit" class="btn btn-primary">検索</button>
       </form>
      </li>
 
-      <li>
+      <li th:if="${index!=null}">
       <button href="#staticModal" class="btn btn-success"  data-toggle="modal" style="position: relative;top :8px">詳細</button>
       </li>
 
@@ -59,11 +60,11 @@
 
          <ul class="nav navbar-nav navbar-right">
 
-          <li class="dropdown"><a href="UserCreate"  >新規登録</a></li>
-          <li class="dropdown"><a href="Login" class="navbar-link login-link">ログイン</a></li>
+          <li class="dropdown"><a th:unless="${session.login}" href="UserCreate"  >新規登録</a></li>
+          <li class="dropdown"><a th:unless="${session.login}" href="login" class="navbar-link login-link">ログイン</a></li>
 
-          <li class="dropdown"><a href="UserDetail">さん</a></li>
-          <li class="dropdown"><a href="Logout" class="navbar-link logout-link">ログアウト</a></li>
+          <li class="dropdown"><a th:if="${session.loginUser!=null}" th:inline="text" href="login">[[${session.loginUser.name}]]さん</a></li>
+          <li class="dropdown"><a th:if="${session.login}"  href="logout" class="navbar-link logout-link">ログアウト</a></li>
 
          </ul>
         </div><!--/.nav-collapse -->
