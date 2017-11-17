@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.web.model.Item;
 import com.web.repository.ItemRepository;
+import com.web.util.Util;
 
 @RequestMapping("/index")
 @Controller
@@ -30,34 +31,19 @@ public class Index {
 
 	@GetMapping
 	public String index(Model model) {
-		String index = "index";
 
 		//商品を取得
 		Page<Item> randomPage = itemRepository.findRand(new PageRequest(0, MAX_ITEM));
 		List<Item> randomList = randomPage.getContent();
 
+		//itemIdと対応するimgのHashMap
+		HashMap<Integer,String> itemImg = Util.itemImg(randomList);
 
-
-
-
-
-		HashMap<Integer,String> itemImg = new HashMap<Integer,String>();
-		HashMap<Integer,String> itemUrl = new HashMap<Integer,String>();
-		for(Item item: randomList) {
-		    String img = "img/"+item.getFileName();
-		    String url = "Item?item_id="+item.getId();
-
-		    itemUrl.put(item.getId(),url);
-		    itemImg.put(item.getId(),img);
-		}
-
-
-		model.addAttribute("index", index);
+		//modelにセットする
+		model.addAttribute("index", "index");
 		model.addAttribute("itemImg", itemImg);
-		model.addAttribute("itemUrl", itemUrl);
+
 		model.addAttribute("itemList", randomList);
-
-
 
 	    return "index/index";
 

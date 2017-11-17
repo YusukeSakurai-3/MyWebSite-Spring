@@ -38,12 +38,13 @@
       <div class="panel ">
         <div class="panel-body">
       <div class="col-md-6">
-      <img src=""  width="400" height="400"/>
+      <img th:src="${itemImg.get(item.getId())}"  width="400" height="400"/>
 	      </div>
 	        <div class="col-md-6">
-	          <h2>itemname</h2>
-	          <h4>円</h4>
+	          <h2><div th:text="${item.getName()}"/></h2>
+	          <h4><div th:inline="text">[[${item.getPrice()}]]円</div></h4>
 	         <br/><br/>
+	        <div th:text="${item.getDetail()}"/>
 
 	         </div>
 	      </div>

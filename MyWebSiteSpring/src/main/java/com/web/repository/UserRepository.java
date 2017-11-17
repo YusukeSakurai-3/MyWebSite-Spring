@@ -13,6 +13,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	List<User> findByLoginIdAndPassword(String string, String string2);
 
+	List<User> findByLoginId(String loginId);
+
 
 
 

@@ -14,7 +14,7 @@ import com.web.form.LoginForm;
 
 @RequestMapping("/logout")
 @Controller
-public class Logout {
+public class LogoutController {
 
 	@Autowired
 	HttpSession session;
@@ -22,7 +22,7 @@ public class Logout {
 	@GetMapping
 	public String logout(@ModelAttribute LoginForm form,Model model,RedirectAttributes attribute) {
 
-		//セッション削除
+		//セッションを削除して、ログイン画面にも戻る
 		session.invalidate();
 		attribute.addFlashAttribute("logoutMessage", "ログアウトしました");
 		return "redirect:/login";

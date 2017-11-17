@@ -5,9 +5,9 @@
 <!-- CSS  -->
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- BootstrapのCSS読み込み -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- オリジナルCSS読み込み -->
-    <link href="css/original/common.css" rel="stylesheet"/>
+    <link href="/css/original/common.css" rel="stylesheet"/>
     <!-- Jqeryの読み込み -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <!--モーダルウィンドウのため追加-->
@@ -30,7 +30,7 @@
       </div>
       <div class="navbar-collapse collapse" >
         <ul class="nav navbar-nav">
-        <li><a href="index">EC</a></li>
+        <li><a href="/index">EC</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -43,8 +43,8 @@
         </li>
 
      <li th:if="${index!=null}">
-      <form  class="navbar-form navbar-right" action="ItemSearchResult">
-        <input type="text" name="search_word" class="form-control" placeholder="Search" value="" size="50"/>
+      <form  class="navbar-form navbar-right" th:action="@{/itemSearch}">
+        <input type="text" name="searchWord" class="form-control" placeholder="Search" value="" size="50"/>
         <button type="submit" class="btn btn-primary">検索</button>
       </form>
      </li>
@@ -60,11 +60,11 @@
 
          <ul class="nav navbar-nav navbar-right">
 
-          <li class="dropdown"><a th:unless="${session.login}" href="UserCreate"  >新規登録</a></li>
-          <li class="dropdown"><a th:unless="${session.login}" href="login" class="navbar-link login-link">ログイン</a></li>
+          <li class="dropdown"><a th:unless="${session.login}" href="/usercreate"  >新規登録</a></li>
+          <li class="dropdown"><a th:unless="${session.login}" href="/login" class="navbar-link login-link">ログイン</a></li>
 
-          <li class="dropdown"><a th:if="${session.loginUser!=null}" th:inline="text" href="login">[[${session.loginUser.name}]]さん</a></li>
-          <li class="dropdown"><a th:if="${session.login}"  href="logout" class="navbar-link logout-link">ログアウト</a></li>
+          <li class="dropdown"><a th:if="${session.loginUser!=null}" th:inline="text" href="/login">[[${session.loginUser.name}]]さん</a></li>
+          <li class="dropdown"><a th:if="${session.login}"  href="/logout" class="navbar-link logout-link">ログアウト</a></li>
 
          </ul>
         </div><!--/.nav-collapse -->
@@ -90,11 +90,11 @@
                         <div class="panel-title"></div>
 
                     <div class="panel-body">
-                      <form  action="ItemSearchResult" class="form-horizontal" style="display: inline">
+                      <form  th:action="@{/itemSearch}" class="form-horizontal" style="display: inline">
                         <div class="form-group">
                           <label  class="control-label col-sm-3">キーワード</label>
                           <div class="col-sm-6">
-                            <input type="text" name="search_word"  class="form-control" value=""/>
+                            <input type="text" name="searchWord"  class="form-control" value=""/>
                             and<input type="radio" name="select" value="and"/>
                              or<input type="radio" name="select" value="or"/>
                           </div>
@@ -104,11 +104,11 @@
                           <label for="continent" class="control-label col-sm-3">価格</label>
                           <div class="row">
                             <div class="col-sm-3">
-                              <input type="text" name="morePrice"  class="form-control" size="30"/>
+                              <input type="text" name="startPrice"  class="form-control" size="30"/>
                             </div>
                             <div class="col-xs-1 text-center">-</div>
                             <div class="col-sm-3">
-                              <input type="text" name="lessPrice"  class="form-control"/>
+                              <input type="text" name="endPrice"  class="form-control"/>
                             </div>
                         </div>
                      </div>

@@ -15,12 +15,17 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 
 	//SELECT * FROM m_item ORDER BY RAND() LIMIT ?
 
-	Page<Item> findAll(Pageable pageable);
+	//Page<Item> findAll(Specifications<Item> specifications);
 
 
 
 
 	@Query("select i from Item i order by rand()")
     Page<Item> findRand(Pageable pageable);
+
+	List<Item> findByName(String searchWord);
+
+	Page<Item> findByNameContains(String searchWord,Pageable pageable);
+
 
 }
