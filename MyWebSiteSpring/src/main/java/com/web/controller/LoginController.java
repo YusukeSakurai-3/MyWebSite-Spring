@@ -36,8 +36,7 @@ public class LoginController {
 	public String input(@ModelAttribute LoginForm form,Model model) {
 		// セッションを取得
 		User user = (User) session.getAttribute("loginUser");
-		//セッション削除
-		//session.invalidate();
+
 		if(user!=null){
 			model.addAttribute("loginUser", user);
 		    return "redirect:/index";
@@ -65,7 +64,8 @@ public class LoginController {
 			// セッションへ保存
 			session.setAttribute("login",true);
 			session.setAttribute("loginUser",user.get(0));
-			//model.addAttribute("loginUser", user.get(0));
+
+			attribute.addFlashAttribute("msg", "ようこそ"+user.get(0).getName()+"さん!");
 
 		    return "redirect:/index";
 	    }

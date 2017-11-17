@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+ <head>
+<title>ユーザー情報画面</title>
+</head>
+  <div th:include="head"></div>
+  <body>
+      <br/><br/><br/>
+  <div th:if="${updateMessage!=null}" th:inline="text" class="alert alert-success">[[${updateMessage}]]</div>
+    <!-- body -->
+    <div class="container">
+      <h1 align="center">ユーザー情報</h1>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="panel-body">
+
+                <label for="user-id" class="control-label col-sm-2">ログインID</label>
+                <p class="static-padding" th:text="${user.getLoginId()}">
+                </p>
+
+                <label for="user-name" class="control-label col-sm-2">ユーザ名</label>
+                <p class="static-padding" th:text="${user.getName()}">
+                </p>
+
+
+                <label for="continent" class="control-label col-sm-2">生年月日</label>
+                <p th:text="${user.getFormatBirthDate()}" class=" static-padding">
+                </p>
+
+                <label  class="control-label col-sm-2">住所</label>
+                <p th:text="${user.getAddress()}" class=" static-padding">
+                </p>
+
+                <label  class="control-label col-sm-2">保有ポイント</label>
+                <p th:inline="text" class="static-padding">
+                 [[${point}]]pt
+                </p>
+
+
+              <label  class="control-label col-sm-2">ほしい物リスト</label>
+              <p  th:text="${user.getIs_open()?'公開':'非公開'}" class=" static-padding">
+              </p>
+              <div class="row">
+            <div class="col-sm-2 col-sm-offset-8">
+              <a class="btn btn-primary" href="/itemreviewlist">投稿したレビューを見る</a>
+            </div>
+          <div class="col-sm-2">
+            <a class="btn btn-primary" href="/userupdate">更新</a>
+          </div>
+        </div>
+        </div>
+       </div>
+      </div>
+     </div>
+
+
+<!--購入履歴-->
+<div class="container">
+  <h1 align="center">購入履歴</h1>
+
+
+          <div class="table-responsive">
+               <table class="table table-striped table-bordered" >
+                 <thead>
+                   <tr>
+                     <th></th>
+                     <th >購入日時</th>
+                     <th >配送方法</th>
+                     <th >合計金額</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr class="something">
+                       <td><form action="UserBuyHistoryDetail" id="buydetail" method="POST" style=" display: inline; ">
+                       <button class="btn btn-info" type="submit">詳細</button>
+                        </form></td>
+                      <td class="col-md-5 col-md-offset-2"></td>
+                       <td class="col-md-2">bdb.getDeliveryMethodName()</td>
+                       <td class="col-md-2">bdb.getTotalPrice()円</td>
+                       <input type="hidden"  form="buydetail" name="id" value="aaa" />
+					   <input type="hidden"  form="buydetail" name="formatDate"  value="aaa"/>
+					   <input type="hidden"  form="buydetail" name="deliveryMethodName" value="aaa"/>
+					   <input type="hidden"  form="buydetail" name="deliveryMethodPrice" value="aaa"/>
+					   <input type="hidden"  form="buydetail" name="totalPrice" value="aaa"/>
+                    </tr>
+                 </tbody>
+               </table>
+             </div>
+
+      <div class="col-xs-1">
+        <a class="btn btn-primary" href="Index">戻る</a>
+      </div>
+      <br/><br/>
+
+      <div class="col-xs-4">
+        <a href="UserList">ユーザー一覧画面へ</a>
+        <a href="ItemMaster">商品マスタ一覧画面へ</a>
+      </div>
+      <br/><br/><br/>
+    </div>
+
+  </body>
+</html>

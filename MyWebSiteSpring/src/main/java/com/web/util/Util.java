@@ -4,18 +4,12 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
 
-import com.web.form.UserCreateForm;
 import com.web.model.Item;
-import com.web.model.User;
 
 public class Util {
 
@@ -35,36 +29,6 @@ public class Util {
 			itemImg.put(item.getId(),img);
 		}
 		return itemImg;
-	}
-
-	/**
-	 *
-	 *@param UserCreateForm
-	 *
-	 *@return Formからの情報を受け取ったUserクラス
-	 * */
-	public static User setUserByForm(UserCreateForm form){
-        User user = new User();
-        user.setLoginId(form.getLoginId());
-        user.setName(form.getUserName());
-        user.setPassword(toCode(form.getPassword()));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        // Date型変換
-        Date formatDate = null;
-		try {
-			formatDate = sdf.parse(form.getBirthDate());
-		} catch (ParseException e) {
-
-			e.printStackTrace();
-		}
-        user.setBirthDate(formatDate);
-        user.setAddress(form.getAddress());
-        user.setIs_open(false);
-        user.setLoginId(form.getLoginId());
-        user.setCreateDate(new Timestamp(System.currentTimeMillis()));
-        user.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-
-		return user;
 	}
 
 
@@ -94,6 +58,37 @@ public class Util {
 	}
 
 
+	//
+	//
+//		/**
+//		 *
+//		 *@param UserCreateForm
+//		 *
+//		 *@return Formからの情報を受け取ったUserクラス
+//		 * */
+//		public static User setUserByForm(UserCreateForm form){
+//	       User user = new User();
+//	       user.setLoginId(form.getLoginId());
+//	       user.setName(form.getUserName());
+//	       user.setPassword(Util.toCode(form.getPassword()));
+//	       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//	       // Date型変換
+//	       Date formatDate = null;
+//			try {
+//				formatDate = sdf.parse(form.getBirthDate());
+//			} catch (ParseException e) {
+	//
+//				e.printStackTrace();
+//			}
+//	       user.setBirthDate(formatDate);
+//	       user.setAddress(form.getAddress());
+//	       user.setIs_open(false);
+//	       user.setLoginId(form.getLoginId());
+//	       user.setCreateDate(new Timestamp(System.currentTimeMillis()));
+//	       user.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+	//
+//			return user;
+//		}
 
 
 }

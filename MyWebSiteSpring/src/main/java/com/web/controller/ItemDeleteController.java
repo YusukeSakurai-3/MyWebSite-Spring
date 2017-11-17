@@ -1,7 +1,6 @@
 package com.web.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +16,7 @@ import com.web.model.Item;
 import com.web.repository.ItemRepository;
 
 @Controller
-public class ItemAddController {
+public class ItemDeleteController {
 
 	@Autowired
 	ItemRepository itemRepository;
@@ -25,30 +24,33 @@ public class ItemAddController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping(value = "/itemadd", method = RequestMethod.POST)
-	public String item(@RequestParam("itemId") String itemId,Model model,RedirectAttributes attribute){
-		System.out.println(itemId);
-
-
-		List<Item> itemList = (List<Item>)itemRepository.findById(Integer.parseInt(itemId));
-
-		Item item = itemList.get(0);
-		System.out.println(item.getName());
+	@RequestMapping(value = "/itemdelete", method = RequestMethod.POST)
+	public String item(@RequestParam(value="deleteIdList", required = false) String[] deleteIdList,Model model,RedirectAttributes attribute){
 
 		//カートを取得
 		ArrayList<Item> cart = (ArrayList<Item>) session.getAttribute("cart");
 
+		String cartActionMessage = "";
 
-		//セッションにカートがない場合カートを作成
-		if(cart==null) {
-			cart = new ArrayList<Item>();
+		if( deleteIdList != null) {
+			//削除対象の商品を削除
+			for (String deleteItemId : deleteIdList) {
+				for (Item cartInItem : cart) {
+					if (cartInItem.getId() == Integer.parseInt(deleteItemId)) {
+						cart.remove(cartInItem);
+						break;
+					}
+				}
+			}
+			cartActionMessage = "削除しました";
+		} else {
+			cartActionMessage = "削除する商品が選択されていません";
 		}
 
-		cart.add(item);
 
 		//カート情報更新
 		session.setAttribute("cart", cart);
-		attribute.addFlashAttribute("cartActionMessage", "商品を追加しました");
+		attribute.addFlashAttribute("cartActionMessage", cartActionMessage);
 
 	    return "redirect:/cart";
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+  <head>
+  <title>ユーザー情報更新画面</title>
+</head>
+ <body>
+      <br/><br/><br/>
+    <!-- body -->
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="panel-body">
+            <form method="POST" th:action="@{/userupdate}" th:object="${userUpdateForm}" class="form-horizontal" >
+            <input type="hidden" name="userId" th:value="${user.getId()}" />
+            <input type="hidden" name="loginId" th:value="${user.getLoginId()}" />
+            <input  type="hidden" name="createDate" class="form-control" th:value="${user.getStringCreateDate()}" />
+              <div class="form-group">
+                <label for="user-id" class="control-label col-sm-2">ログインID</label>
+                <div th:text="${user.getLoginId()}" class="form-control-static col-sm-6">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="control-label col-sm-2">パスワード</label>
+                <div class="col-sm-6">
+                  <input type="password" name="password" class="form-control" />
+                  <input type="hidden" name="prePassword" th:value="${user.getPassword()}" />
+                  <span style="color:#ff0000;" th:if="${passErrorMsg!=null}" th:inline="text" >[[${passErrorMsg}]]</span>
+                </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="password-confirm" class="control-label col-sm-2">パスワード(確認)</label>
+                <div class="col-sm-6">
+                  <input type="password" name="passwordConfirm"  class="form-control" />
+                </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="user-name" class="control-label col-sm-2">ユーザ名</label>
+                <div class="col-sm-6">
+                  <input type="text" name="userName" class="form-control" th:value="${user.getName()}" />
+                  <span style="color:#ff0000;" th:if="${#fields.hasErrors('userName')}" th:inline="text" th:object="${userUpdateForm}" th:errors="*{userName}">
+                  [[${userName}]]</span>
+                </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="continent" class="control-label col-sm-2">生年月日</label>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input  type="date" name="birthDate" class="form-control" size="30" th:value="${user.getStringBirthDate()}" />
+                    <span style="color:#ff0000;" th:if="${#fields.hasErrors('birthDate')}" th:inline="text" th:object="${userUpdateForm}" th:errors="*{birthDate}">
+                    [[${birthDate}]]</span>
+                  </div>
+              </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="continent" class="control-label col-sm-2">住所</label>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input  type="text" name="address"  class="form-control" size="30" th:value="${user.getAddress()}" />
+                    <span style="color:#ff0000;" th:if="${#fields.hasErrors('address')}" th:inline="text" th:object="${userUpdateForm}" th:errors="*{address}">
+                    [[${address}]]</span>
+                  </div>
+              </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="continent" class="control-label col-sm-2">ほしい物リスト</label>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <select class="form-control" name="isOpen"  style="position: relative;top :4px">
+                    <option  th:selected="${user.getIs_open()}?'selected':'no'" th:value="open">公開</option>
+                    <option  th:selected="${user.getIs_open()}?'no':'selected'" th:value="close">非公開</option>
+                    </select>
+                  </div>
+              </div>
+              </div>
+
+              <div>
+                <button type="submit" value="更新" class="btn btn-primary center-block form-submit">更新</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-4">
+        <a href="/userdetail">戻る</a>
+      </div>
+
+
+    </div>
+  </body>
+</html>
