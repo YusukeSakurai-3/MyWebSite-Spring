@@ -4,11 +4,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
 
+import com.web.model.BuyDetail;
 import com.web.model.Item;
 
 public class Util {
@@ -55,6 +57,34 @@ public class Util {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**商品の合計を計算するメソッド
+	 * @param  合計したい商品リスト
+	 * @return 合計金額
+	 */
+	public static int getTotalItemPrice(ArrayList<Item> itemList) {
+		int total = 0;
+		for(Item item : itemList) {
+			total += item.getPrice();
+		}
+
+		return total;
+	}
+
+	/**データベースに登録したい購入情報の詳細リストを取得する
+	 * @param  商品リスト
+	 * @param  購入Id
+	 * @return 購入情報詳細リスト
+	 */
+	public static ArrayList<BuyDetail> setBuyItemList(ArrayList<Item> itemList, int buyId) {
+
+		ArrayList<BuyDetail> buyItemList = new ArrayList<BuyDetail>();
+		for(Item item:itemList) {
+			BuyDetail buydetail = new BuyDetail(item.getId(),buyId);
+			buyItemList.add(buydetail);
+		}
+		return buyItemList;
 	}
 
 

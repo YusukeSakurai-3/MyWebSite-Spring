@@ -60,11 +60,11 @@
 
          <ul class="nav navbar-nav navbar-right">
 
-          <li class="dropdown"><a th:unless="${session.login}" href="/usercreate"  >新規登録</a></li>
-          <li class="dropdown"><a th:unless="${session.login}" href="/login" class="navbar-link login-link">ログイン</a></li>
+          <li class="dropdown"><a th:if="${session.loginUser==null}" href="/usercreate"  >新規登録</a></li>
+          <li class="dropdown"><a th:if="${session.loginUser==null}" href="/login" class="navbar-link login-link">ログイン</a></li>
 
           <li class="dropdown"><a th:if="${session.loginUser!=null}" th:inline="text" href="/userdetail">[[${session.loginUser.name}]]さん</a></li>
-          <li class="dropdown"><a th:if="${session.login}"  href="/logout" class="navbar-link logout-link">ログアウト</a></li>
+          <li class="dropdown"><a th:if="${session.loginUser!=null}"  href="/logout" class="navbar-link logout-link">ログアウト</a></li>
 
          </ul>
         </div><!--/.nav-collapse -->

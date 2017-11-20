@@ -10,12 +10,7 @@ import javax.persistence.Id;
 @Entity
 public class Point implements Serializable {
 
-	public Point() {}
 
-	public Point(int userId){
-		this.userId = userId;
-		this.point = 0;
-	}
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -42,6 +37,25 @@ public class Point implements Serializable {
 		this.point = point;
 	}
 
+	public Point() {}
+
+	public Point(int userId){
+		this.userId = userId;
+		this.point = 0;
+	}
+
+	//ポイント情報を更新する時に使用するコンストラクタ
+	public Point(Point userPoint, int userId, int usingPoint, int preTotalPrice) {
+		this.id = userPoint.getId();
+		this.userId = userId;
+
+		//ポイントを使用したかどうかによって値を操作する
+		if(usingPoint == 0) {
+			this.point = userPoint.getPoint() + preTotalPrice/100;
+		}else {
+			this.point = userPoint.getPoint() - usingPoint;
+		}
+	}
 
 
 }

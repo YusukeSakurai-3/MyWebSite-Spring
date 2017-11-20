@@ -52,7 +52,7 @@ public class UserUpdatecontroller {
 			ArrayList<Item> cart = (ArrayList<Item>)session.getAttribute("cart");
 
 
-			//ユーザー登録する
+			//ユーザー更新する
 			User updateUser = new User(form);
 			userRepository.save(updateUser);
 

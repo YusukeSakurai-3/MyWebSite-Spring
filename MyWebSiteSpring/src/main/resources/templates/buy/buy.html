@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+  <head>
+  </head>
+  <title>購入</title>
+  <body>
+
+    <!-- body -->
+    <br/><br/><br/>
+   <h1 align="center">購入</h1><br/>
+    <div class="container">
+      <div class="alert alert-danger" role="alert">ポイントを使用する場合、今回の購入でポイントはつきません</div>
+        <div class="table-responsive">
+             <table class="table table-striped table-bordered">
+               <thead>
+                 <tr>
+                   <th >商品名</th>
+                   <th >単価</th>
+                   <th >小計</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr class="something" th:each="item:${cart}">
+                   <td class="col-md-4" th:text="${item.getName()}"></td>
+                     <td class="col-md-5" th:inline="text">[[${item.getPrice()}]]円</td>
+                     <td class="col-md-3" th:inline="text">[[${item.getPrice()}]]円</td>
+                  </tr>
+               </tbody>
+             </table>
+           </div>
+
+
+      <form class="form-horizontal col-sm-10" id="buy" action="/buyconfirm" method="POST" style="display:inline"></form>
+
+      <div class="form-group col-sm-3" >
+        <label for="delivery" class="control-label" >配送方法 :</label>
+        <select class="form-control" form="buy" name="deliveryMethodId" >
+		<option  th:each="delivery:${deliveryMethodList}" th:value="${delivery.getId()}"  th:text="${delivery.getName()}">
+		</option>
+		</select>
+     </div>
+
+      <div class="form-group col-sm-3">
+        <label  class="control-label">ポイントを使用する(1pt 1円):</label>
+              <input class="form-control" form="buy"  type="text" name="point" placeholder="pt"/>
+            <th:label class="control-label"><div th:inline="text">所持ポイント:[[${point}]]pt</div></th:label>
+            <span style="color:#ff0000;" th:if="${buyErrorMessage!=null}" th:inline="text" >[[${buyErrorMessage}]]</span>
+          </div>
+      </div>
+
+
+        <div class="col-sm-12">
+          <button class="btn btn-primary col-sm-4 col-sm-offset-4" form="buy" type="submit">購入確認</button>
+        </div>
+  </body>
+</html>
