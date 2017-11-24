@@ -10,8 +10,6 @@ import javax.persistence.Id;
 @Entity
 public class Point implements Serializable {
 
-
-
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;

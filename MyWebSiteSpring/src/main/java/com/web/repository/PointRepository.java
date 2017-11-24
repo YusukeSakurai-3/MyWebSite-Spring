@@ -8,6 +8,8 @@ public interface PointRepository extends CrudRepository<Point, Long> {
 
 	 Point findByUserId(int id) ;
 
+	void flush();
+
 
 
 }

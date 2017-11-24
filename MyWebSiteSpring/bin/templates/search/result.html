@@ -7,7 +7,7 @@
 <body>
 
 <h1 th:inline="text" align="center">検索結果</h1>
-<h4 th:inline="text" align="center">検索結果389件</h4>
+<h4 th:inline="text" align="center">検索結果300件</h4>
 
 
   <div class="container">
@@ -33,6 +33,32 @@
 <br/>
 <br/>
 <br/>
+
+ <div class="text-center">
+			<ul class="pagination">
+
+				<!-- １ページ戻るボタン  -->
+				<li><a><font color="black">≪ 前へ</font></a></li>
+
+				<li><a href="itemseachresult">≪ 前へ</a></li>
+
+
+				<li><a>⋯</a></li>
+
+				<li><a href="ItemSearchResult"></a></li>
+				<!-- MAXを越さないように -->
+
+				<li><a>⋯</a></li>
+
+				<li><a href="">pageMax</a></li>
+
+				<!-- 1ページ送るボタン -->
+                <li><a><font color="black">次へ ≫</font></a></li>
+
+				<li><a href="ItemSearchResult">次へ ≫</a></li>
+
+			</ul>
+		</div>
 
 	</div>
 

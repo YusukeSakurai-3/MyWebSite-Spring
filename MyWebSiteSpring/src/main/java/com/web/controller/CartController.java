@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.web.form.LoginForm;
 import com.web.model.Item;
 import com.web.util.Util;
 
@@ -24,7 +22,7 @@ public class CartController {
 	HttpSession session;
 
 	@GetMapping
-	public String cart(@ModelAttribute LoginForm form,Model model) {
+	public String cart(Model model) {
 	ArrayList<Item> cart = (ArrayList<Item>)session.getAttribute("cart");
 
 

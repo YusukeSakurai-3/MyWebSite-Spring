@@ -1,6 +1,8 @@
 package com.web.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,6 +36,29 @@ public class DeliveryMethod implements Serializable {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	/**
+	 * Idにひもづいた配送方法名のMapを返す
+	 * @param 配送方法のリスト
+	 * @HashMap<Integer, String> Idと配送方法の組
+	 */
+	public static HashMap<Integer, String> getDeliveryMethodName(List<DeliveryMethod> deliveryMethodList) {
+		HashMap<Integer,String> deliveryMethodMap = new HashMap<Integer,String>();
+
+		for(DeliveryMethod method: deliveryMethodList) {
+			deliveryMethodMap.put(method.getId(), method.getName());
+		}
+
+		return deliveryMethodMap;
+	}
+	public static HashMap<Integer, Integer> getDeliveryMethodPrice(List<DeliveryMethod> deliveryMethodList) {
+		HashMap<Integer,Integer> deliveryMethodPrice = new HashMap<Integer,Integer>();
+
+		for(DeliveryMethod method: deliveryMethodList) {
+			deliveryMethodPrice.put(method.getId(), method.getPrice());
+		}
+		return deliveryMethodPrice;
 	}
 
 

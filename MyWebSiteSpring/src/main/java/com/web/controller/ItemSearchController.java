@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.form.ItemSearchForm;
@@ -35,21 +36,26 @@ public class ItemSearchController {
 
 	//@RequestParam("searchWord")
 	@RequestMapping(value = "/itemSearch", method = RequestMethod.GET)
-	public String search(@Validated ItemSearchForm form,BindingResult result, Model model,RedirectAttributes attribute){
+	public String search(@Validated ItemSearchForm form,@RequestParam(name = "pageNum",defaultValue = "1") String pageN,
+			BindingResult result,Model model,RedirectAttributes attribute ) {
 		if(result.hasErrors()) {
 			 attribute.addFlashAttribute("msg", "検索エラー");
 			 return "redirect:index";
 		}
-		String[] searchWords = form.getSearchWord().split("　", 0);
+		//String[] searchWords = form.getSearchWord().split("　", 0);
 
-		for(String str:searchWords) {
-			System.out.println(str);
-		}
+		//for(String str:searchWords) {
+		//	System.out.println(str);
+		//}
 //		System.out.println(form.getSearchWord());
 
+		int pageNum = Integer.parseInt(pageN);
 
-		Page<Item> itemPage = itemRepository.findByNameContains(form.getSearchWord(),new PageRequest(1, PAGE_MAX_ITEM_COUNT));
+
+		Page<Item> itemPage = itemRepository.findByNameContains(form.getSearchWord(),new PageRequest(pageNum, PAGE_MAX_ITEM_COUNT));
 		List<Item> itemList = itemPage.getContent();
+		int maxPage = itemPage.getTotalPages();
+		System.out.println(maxPage);
 
 		//itemIdと対応するimgのHashMap
 		HashMap<Integer, String> itemImg = Util.itemImg(itemList);

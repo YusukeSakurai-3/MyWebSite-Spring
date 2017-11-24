@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+<title>購入詳細画面</title>
+  <head></head>
+  <body>
+    <br/><br/><br/>
+    <!-- body -->
+    <div class="container">
+  <!--購入詳細-->
+  <div class="container">
+    <h1 align="center">購入詳細</h1>
+          <div class="table-responsive">
+               <table class="table table-striped table-bordered">
+                 <thead>
+                   <tr>
+                     <th >購入日時</th>
+                     <th >配送方法</th>
+                     <th >合計金額</th>
+
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr class="something" >
+                     <td class="col-md-8" th:inline="text">[[${buyData.getFormatCreateDate()}]]</td>
+                       <td class="col-md-2" th:inline="text">[[${deliveryName.get(buyData.getDeliveryMethodId())}]]</td>
+                       <td class="col-md-2" th:inline="text">[[${buyData.getTotalPrice()}]]円</td>
+                    </tr>
+                 </tbody>
+               </table>
+             </div>
+     </div>
+
+
+
+
+    <div class="container">
+            <div class="table-responsive">
+                 <table class="table table-striped table-bordered">
+                   <thead>
+                     <tr>
+                       <th >商品名</th>
+                       <th></th>
+                       <th >単価</th>
+
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr class="something" th:each="item:${itemList}">
+                       <td class="col-md-6" th:inline="text">
+                       <a href="/item" th:href="@{/item(itemId=${item.getId()})}">[[${item.getName()}]]</a></td>
+                       <td>
+                       <form action="itemreview" >
+                       <input type="hidden" name="item_id" value="item.getId"/>
+                       <button class="btn btn-primary col-sm-4" type="submit">レビューする</button>
+                       <button class="btn btn-default col-sm-4" >レビュー済</button>
+                       </form>
+                      </td>
+                         <td class="col-md-2" th:inline="text">[[${item.getPrice()}]]円</td>
+                      </tr>
+
+                       <tr>
+                         <td ></td>
+                         <td th:inline="text">[[${deliveryName.get(buyData.getDeliveryMethodId())}]]</td>
+                         <td th:inline="text">[[${deliveryPrice.get(buyData.getDeliveryMethodId())}]]円</td>
+                       </tr>
+                       <tr>
+                         <td ></td>
+                         <td >合計</td>
+                         <td th:inline="text">[[${buyData.getTotalPrice()}]]円</td>
+                       </tr>
+
+                       <tr class="success" th:if="${buyData.getPoint()==0}">
+                         <td ></td>
+                         <td >獲得ポイント</td>
+                         <td th:inline="text">[[${buyData.getTotalPrice()/100}]]pt</td>
+                       </tr>
+                       <tr class="info" th:if="${buyData.getPoint()!=0}">
+                         <td ></td>
+                         <td >使用ポイント</td>
+                         <td th:inline="text">[[${buyData.getPoint()}]]pt</td>
+                       </tr>
+                   </tbody>
+                 </table>
+               </div>
+           </div>
+        </div>
+
+
+  </body>
+</html>

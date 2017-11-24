@@ -11,21 +11,22 @@
     <!-- body -->
 
     <div class="container">
+    <div class="alert alert-success" role="alert">商品を購入しました</div>
       <br/><br/>
       <div class="row">
-        <div class="col-sm-4">
-          <form  action="index">
+        <div class="col-sm-4 col-sm-offset-3">
+          <form  action="/index">
             <button class="btn btn-success" type="submit" name="action">
-            <div style="width:120px;">買い物を続ける</div>
+            <div>買い物を続ける</div>
           </button>
         </form>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <form  action="userdetail">
             <input type="hidden" name="itemId" value=""/>
             <button class="btn btn-success" type="submit" name="action">
-            <div style="width:120px;">ユーザー情報へ</div>
+            <div >ユーザー情報へ</div>
           </button>
         </form>
         </div>
@@ -47,9 +48,9 @@
                  </thead>
                   <tbody>
                    <tr class="something">
-                     <td class="col-md-8" th:inline="text"></td>
-                       <td class="col-md-2" th:inline="text"></td>
-                       <td class="col-md-2" th:inline="text"></td>
+                     <td class="col-md-8" th:inline="text">[[${buyData.getFormatCreateDate()}]]</td>
+                       <td class="col-md-2" th:inline="text">[[${deliveryMethod.getName()}]]</td>
+                       <td class="col-md-2" th:inline="text">[[${buyData.getTotalPrice()}]]円</td>
                     </tr>
                  </tbody>
                </table>
@@ -68,34 +69,39 @@
                  </thead>
                  <tbody>
 
-                   <tr class="something">
-                     <td class="col-md-6">buyIDB.getName</td>
+                   <tr class="something" th:each="item:${buyItemData}">
+                     <td class="col-md-6" th:inline="text">[[${item.getName()}]]</td>
                      <td>
                     <form action="itemreview" >
-                      <input type="hidden" name="itemId" value="buyIDB.getId" />
+                      <input type="hidden" name="itemId" th:value="${item.getId()}" />
                       <button class="btn btn-primary col-sm-4" type="submit">レビューする</button>
                     </form>
                     </td>
-                       <td class="col-md-2">buyIDB.getPrice円</td>
+                       <td class="col-md-2" th:inline="text">[[${item.getPrice()}]]円</td>
                     </tr>
 
                      <tr>
                        <td ></td>
-                       <td >resultBDB.getDeliveryMethodName</td>
-                       <td >resultBDB.getDeliveryMethodPrice円</td>
+                       <td th:inline="text">[[${deliveryMethod.getName()}]]</td>
+                       <td th:inline="text">[[${deliveryMethod.getPrice()}]]円</td>
                      </tr>
                      <tr>
                        <td ></td>
                        <td >合計</td>
-                       <td >resultBDB.getTotalPrice円</td>
+                       <td th:inline="text">[[${buyData.getTotalPrice()}]]円</td>
                      </tr>
 
-                     <tr class="success">
+                     <tr class="info" th:if="${buyData.getPoint()!=0}" >
+                       <td ></td>
+                       <td >使用ポイント</td>
+                       <td th:inline="text">[[${buyData.getPoint()}]]pt</td>
+                     </tr>
+
+                     <tr class="success" th:if="${buyData.getPoint()==0}">
                        <td ></td>
                        <td >獲得ポイント</td>
-                       <td >resultBDB.getTotalPrice</td>
+                       <td th:inline="text">[[${buyData.getTotalPrice() / 100}]]pt</td>
                      </tr>
-
                  </tbody>
                </table>
              </div>

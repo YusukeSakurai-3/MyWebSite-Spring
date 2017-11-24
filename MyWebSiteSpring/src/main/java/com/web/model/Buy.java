@@ -2,6 +2,7 @@ package com.web.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ public class Buy implements Serializable {
 	private int id;
 	private int userId;
 	private int totalPrice;
+	//使用したポイント
+	private int point;
 	private int deliveryMethodId;
 	private Date createDate;
 
@@ -25,10 +28,11 @@ public class Buy implements Serializable {
 	}
 
 	//登録したい情報を持つコンストラクタ
-	public Buy(int userId, int totalPrice, int deliveryMethodId) {
+	public Buy(int userId, int totalPrice, int deliveryMethodId,int point) {
 		this.userId = userId;
 		this.totalPrice = totalPrice;
 		this.deliveryMethodId = deliveryMethodId;
+		this.point = point;
 	}
 
 	public int getId() {
@@ -71,6 +75,19 @@ public class Buy implements Serializable {
 	public void setCurrentDate() {
 		this.createDate = new Timestamp(System.currentTimeMillis());
 
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public String getFormatCreateDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 hh時mm分");
+		return sdf.format(createDate);
 	}
 
 

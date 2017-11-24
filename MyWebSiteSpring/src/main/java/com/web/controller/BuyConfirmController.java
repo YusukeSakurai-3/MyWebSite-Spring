@@ -71,7 +71,7 @@ public class BuyConfirmController {
 		int totalPrice = preTotalPrice - point;
 
 		//購入完了時使用(point,buyData)
-		Buy buyData = new Buy(user.getId(),totalPrice,deliveryMethod.getId());
+		Buy buyData = new Buy(user.getId(),totalPrice,deliveryMethod.getId(),point);
 		Point pointData = new Point(userPoint,user.getId(),point,preTotalPrice);
 		session.setAttribute("buyData",buyData);
 		session.setAttribute("pointData", pointData);
