@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+<head>
+<title>ほしい物リスト</title>
+</head><br/><br/><br/><br/>
+<body>
+
+<h1 th:inline="text" align="center">[[${session.loginUser.name}]]さんのほしい物リスト</h1>
+<br/><br/>
+
+
+  <div class="container">
+  	 <div class="row">
+      <div class="col-md-3" th:each="item:${itemGetList}">
+        <br/>
+        <div class="card">
+            <div class="card-image">
+              <a href="/item" th:href="@{/item(itemId=${item.getId()})}">
+            <img  th:src="${itemImg.get(item.getId())}"  width="260" height="250" />
+              </a>
+             <div class="card-content">
+              <span class="card-title"><div th:text="${item.getName()}"/></span>
+              <div th:inline="text">[[${item.getPrice()}]]円</div>
+            </div>
+           </div>
+          </div>
+        </div>
+		</div>
+		<br/><br/><br/>
+<br/>
+<br/>
+<br/>
+
+	</div>
+
+  </body>
+</html>
