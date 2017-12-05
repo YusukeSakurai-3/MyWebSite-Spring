@@ -28,7 +28,6 @@ public class ItemGetListController {
 	//1ページに表示する商品数
 	final static int PAGE_MAX_ITEM_COUNT = 8;
 
-
 	@Autowired
 	ItemRepository itemRepository;
 
@@ -38,9 +37,8 @@ public class ItemGetListController {
 	@Autowired
 	HttpSession session;
 
-
 	@RequestMapping(value = "/itemgetlist", method = RequestMethod.GET)
-	public String search(@RequestParam(name = "userId",defaultValue="0") String inputUserId,
+	public String itemgetlist(@RequestParam(name = "userId",defaultValue="0") String inputUserId,
 				                       Model model,RedirectAttributes attribute ) {
 
 
