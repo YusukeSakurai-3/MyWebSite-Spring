@@ -42,7 +42,6 @@ public class BuyResultController {
 	HttpSession session;
 
 	@RequestMapping(value = "/buyresult", method = RequestMethod.POST)
-	//@RequestMapping(value = "/buyresult")
 	public String buy(Model model,RedirectAttributes attribute) {
 		// セッションを取得
 		User user = (User) session.getAttribute("loginUser");

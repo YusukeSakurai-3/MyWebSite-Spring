@@ -38,7 +38,7 @@
             <li><a href="ranking">ランキング</a></li>
            <li ><a th:if="${session.loginUser!=null}" href="/itemgetlist" th:href="@{/itemgetlist(userId=${session.loginUser.getId()})}">ほしい物リスト</a></li>
             <!--  <li> <a href="Index">最近見た商品</a></li> -->
-            <li> <a href="Item?item_id>">ランダムページ</a></li>
+            <li> <a href="random">ランダムページ</a></li>
           </ul>
         </li>
 

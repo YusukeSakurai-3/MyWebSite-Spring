@@ -50,8 +50,8 @@
                        <td class="col-md-6" th:inline="text">
                        <a href="/item" th:href="@{/item(itemId=${item.getId()})}">[[${item.getName()}]]</a></td>
                        <td>
-                       <form action="itemreview" >
-                       <input type="hidden" name="item_id" value="item.getId"/>
+                       <form th:action="itemreview" >
+                       <input type="hidden" name="itemId" th:value="${item.getId()}"/>
                        <button class="btn btn-primary col-sm-4" type="submit">レビューする</button>
                        <button class="btn btn-default col-sm-4" >レビュー済</button>
                        </form>

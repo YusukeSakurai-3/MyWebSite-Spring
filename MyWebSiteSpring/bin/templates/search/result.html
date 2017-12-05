@@ -38,24 +38,20 @@
 			<ul class="pagination">
 
 				<!-- １ページ戻るボタン  -->
-				<li><a><font color="black">≪ 前へ</font></a></li>
-
-				<li><a href="itemseachresult">≪ 前へ</a></li>
+				<li th:if="${pageNum == 0}"><a><font color="black">≪ 前へ</font></a></li>
+				<li th:if="${pageNum > 0}"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${pageNum - 1})}">≪ 前へ</a></li>
+				<li th:if="${pageNum > 0}" th:inline="text"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${0})}">1</a></li>
+				<li><a>⋯</a></li>
 
 
 				<li><a>⋯</a></li>
 
-				<li><a href="ItemSearchResult"></a></li>
-				<!-- MAXを越さないように -->
-
-				<li><a>⋯</a></li>
-
-				<li><a href="">pageMax</a></li>
+				<li th:inline="text"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${pageMax - 1})}">[[${pageMax}]]</a></li>
 
 				<!-- 1ページ送るボタン -->
-                <li><a><font color="black">次へ ≫</font></a></li>
+                <li th:if="${pageNum >= pageMax - 1}"><a><font color="black">次へ ≫</font></a></li>
 
-				<li><a href="ItemSearchResult">次へ ≫</a></li>
+				<li th:if="${pageMax - 1  > pageNum}"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${pageNum + 1})}">次へ ≫</a></li>
 
 			</ul>
 		</div>

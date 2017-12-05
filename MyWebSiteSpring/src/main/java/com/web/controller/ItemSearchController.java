@@ -36,7 +36,7 @@ public class ItemSearchController {
 
 	//@RequestParam("searchWord")
 	@RequestMapping(value = "/itemSearch", method = RequestMethod.GET)
-	public String search(@Validated ItemSearchForm form,@RequestParam(name = "pageNum",defaultValue = "1") String pageN,
+	public String search(@Validated ItemSearchForm form,@RequestParam(name = "pageNum",defaultValue = "0") String pageN,
 			BindingResult result,Model model,RedirectAttributes attribute ) {
 		if(result.hasErrors()) {
 			 attribute.addFlashAttribute("msg", "検索エラー");
@@ -61,6 +61,9 @@ public class ItemSearchController {
 		HashMap<Integer, String> itemImg = Util.itemImg(itemList);
 
 		//modelにセットする
+		model.addAttribute("searchWord",form.getSearchWord());
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("pageMax",maxPage);
 		model.addAttribute("index", "index");
 		model.addAttribute("itemImg", itemImg);
 		model.addAttribute("itemList", itemList);

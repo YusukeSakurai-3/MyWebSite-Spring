@@ -14,6 +14,8 @@ import com.web.model.BuyDetail;
 import com.web.model.Item;
 
 public class Util {
+	// ファイルをアップロードする場所
+    public static final String UPLOAD_PAGE = "/Users/sakurai/git/MyWebSite-Spring/MyWebSiteSpring/bin/static/img/";
 
 
 	/**商品のListに対してfileNameをhtmlで読み込める形にして返す
