@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="card-image">
                   <a href="/item"  th:href="@{/item(itemId=${item.getId()})}">
-                  <img th:src="${itemImg.get(item.getId())}"  width="250" height="250"/>
+                  <img th:src="${itemImg}"  width="250" height="250"/>
                   </a>
                   <div class="card-content">
                   <span class="card-title" th:inline="text">[[${item.getName()}]]</span>
@@ -40,24 +40,29 @@
               </div>
             </div>
           <div class="col-md-5">
-            <form method="post" th:action="@{/itemreview}" id="itemreview" th:object="${itemReviewForm}"  enctype="multipart/form-data">
+            <form method="post" th:action="@{/itemreviewupdate}" id="itemreview" th:object="${itemReviewForm}"  enctype="multipart/form-data">
             </form>
             <input type="hidden" form="itemreview" name="itemId" th:value="${item.getId()}"/>
+            <input type="hidden" form="itemreview" name="updateId" th:value="${review.getId()}"/>
             <div class="form-group">
               <label for="review">レビュー
-                  <input form="itemreview" type="text" class="form-control" placeholder="reviewTitle" name="title"/>
+                  <input form="itemreview" type="text" class="form-control" placeholder="reviewTitle" name="title" th:value="${review.getTitle()}"/>
                   <span style="color:#ff0000;" th:object="${itemReviewForm}" th:errors="*{title}"></span>
 
               </label>
               	     <select form="itemreview" name="evaluation" id="star">
-					  <option value="1">1</option>
-					  <option value="2">2</option>
-					  <option th:selected="selected" value="3">3</option>
-					  <option value="4">4</option>
-					  <option value="5">5</option>
+					  <option th:selected="${review.getEvaluation() == 1}?'selected':'no'" value="1">1</option>
+					  <option th:selected="${review.getEvaluation() == 2}?'selected':'no'" value="2">2</option>
+					  <option th:selected="${review.getEvaluation() == 3}?'selected':'no'" value="3">3</option>
+					  <option th:selected="${review.getEvaluation() == 4}?'selected':'no'" value="4">4</option>
+					  <option th:selected="${review.getEvaluation() == 5}?'selected':'no'" value="5">5</option>
 					</select>
-              <textarea form="itemreview" rows="14" class="form-control" id="review" name="reviewText"></textarea>
+              <textarea form="itemreview" rows="14" class="form-control" id="review" name="reviewText" th:inline="text">
+              [[${review.getReviewText()}]]
+              </textarea>
               <span style="color:#ff0000;" th:object="${itemReviewForm}" th:errors="*{reviewText}"></span>
+
+
             </div>
 
 

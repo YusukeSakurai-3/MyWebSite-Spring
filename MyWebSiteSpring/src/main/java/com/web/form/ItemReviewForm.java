@@ -1,11 +1,18 @@
 package com.web.form;
 
+import java.io.Serializable;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
-public class ItemReviewForm {
+public class ItemReviewForm implements Serializable{
 
 	private String itemId;
+
+	@NotEmpty(message = "タイトルを入力してください")
 	private String title;
+
+	@NotEmpty(message = "本文を入力してください")
 	private String reviewText;
 	private String evaluation;
 	private MultipartFile uploadFile;

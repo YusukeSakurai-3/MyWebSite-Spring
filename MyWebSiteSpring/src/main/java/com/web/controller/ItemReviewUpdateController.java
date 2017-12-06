@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,7 +30,8 @@ import com.web.repository.ReviewRepository;
 import com.web.util.Util;
 
 @Controller
-public class ItemReviewController {
+public class ItemReviewUpdateController {
+
 
 	@Autowired
 	ItemRepository itemRepository;
@@ -42,38 +42,38 @@ public class ItemReviewController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping(value = "/itemreview", method = RequestMethod.GET)
-	public String itemreview(@RequestParam("itemId") String itemId, @ModelAttribute ItemReviewForm form,Model model){
+	@RequestMapping(value = "/itemreviewupdate", method = RequestMethod.GET)
+	public String update(@RequestParam("updateId") String updateId,@ModelAttribute ItemReviewForm form,Model model){
 
-		List<Item> itemList = (List<Item>)itemRepository.findById(Integer.parseInt(itemId));
+		List<Review> reviewList = (List<Review>)reviewRepository.findById(Integer.parseInt(updateId));
+		Review review = reviewList.get(0);
+
+		List<Item> itemList = (List<Item>)itemRepository.findById(review.getItemId());
 		Item item = itemList.get(0);
 
 
+
 		//itemIdと対応するimgのHashMap
-		HashMap<Integer, String> itemImg = Util.itemImg(itemList);
+		String itemImg = "/img/"+item.getFileName();
 
 		model.addAttribute("itemImg", itemImg);
+		model.addAttribute("review", review);
 		model.addAttribute("item", item);
 
-	    return "item/itemreview";
-
+	    return "item/itemreviewupdate";
 
 	}
 
-	@RequestMapping(value = "/itemreview", method = RequestMethod.POST)
-	public String add(@Validated @ModelAttribute ItemReviewForm form, BindingResult result, Model model,RedirectAttributes attribute ) {
+	@RequestMapping(value = "/itemreviewupdate", method = RequestMethod.POST)
+	public String reviewupdate(@RequestParam("updateId") String updateId,@Validated @ModelAttribute ItemReviewForm form, BindingResult result,Model model,RedirectAttributes attribute) {
+
+		System.out.println("updateId:"+updateId);
 		//バリデイション
-		if (result.hasErrors()) {
-			return itemreview(form.getItemId(),form, model);
+	    if (result.hasErrors()) {
+			return update(updateId,form, model);
 		}
 
-		System.out.println("evaluation:"+form.getEvaluation());
-		System.out.println("itemId:"+form.getItemId());
-		System.out.println("reviewText:"+form.getReviewText());
-		System.out.println("Title:"+form.getTitle());
-        System.out.println(form.getUploadFile().getOriginalFilename());
-
-        //ファイルが選択されている場合
+	    //ファイルが選択されている場合
         if(!form.getUploadFile().isEmpty()){
 
 	        String filename = form.getUploadFile().getOriginalFilename();
@@ -90,18 +90,21 @@ public class ItemReviewController {
 	        }
         }
 
-
-        // セッションを取得
+	    // セッションを取得
      	User user = (User) session.getAttribute("loginUser");
-     	//ファイルがない場合noimage.imgを保存
-        //登録するレビューのインスタンス
-        Review review = new Review(form, user.getId());
+
+
+        //更新するレビューのインスタンス
+        Review review = new Review(Integer.parseInt(updateId),form,user.getId());
         reviewRepository.save(review);
 
-        attribute.addFlashAttribute("reviewActionMessage", "レビューを追加しました");
+
+
+        attribute.addFlashAttribute("reviewActionMessage", "レビューを更新しました");
 
 
 	    return "redirect:itemreviewlist";
 
         }
+
 }

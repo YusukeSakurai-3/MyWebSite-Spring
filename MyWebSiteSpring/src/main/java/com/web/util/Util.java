@@ -12,6 +12,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import com.web.model.BuyDetail;
 import com.web.model.Item;
+import com.web.model.Review;
 
 public class Util {
 	// ファイルをアップロードする場所
@@ -34,6 +35,24 @@ public class Util {
 		}
 		return itemImg;
 	}
+
+	/**レビューのListに対してfileNameをhtmlで読み込める形にして返す
+	 *
+	 *@param List<Item>
+	 *
+	 *@return 商品Idと修正したfileNameのHashMap
+	 * */
+	public static HashMap<Integer,String> reviewImg(List<Review> reviewList){
+
+		HashMap<Integer,String> itemImg = new HashMap<Integer,String>();
+
+		for(Review review : reviewList) {
+			String img = "/img/"+review.getFileName();
+			itemImg.put(review.getId(),img);
+		}
+		return itemImg;
+	}
+
 
 
 	/**暗号メソッド
@@ -89,38 +108,19 @@ public class Util {
 		return buyItemList;
 	}
 
+	/**
+	 * 適切にな長さの部分文字列
+	 */
+	public static String getsubString(String str, int endIndex) {
+		if(str.length() < endIndex) {
+			return str +"⋯";
+		}else {
+			return str.substring(0, endIndex - 1)+"⋯";
+		}
+	}
 
-	//
-	//
-//		/**
-//		 *
-//		 *@param UserCreateForm
-//		 *
-//		 *@return Formからの情報を受け取ったUserクラス
-//		 * */
-//		public static User setUserByForm(UserCreateForm form){
-//	       User user = new User();
-//	       user.setLoginId(form.getLoginId());
-//	       user.setName(form.getUserName());
-//	       user.setPassword(Util.toCode(form.getPassword()));
-//	       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//	       // Date型変換
-//	       Date formatDate = null;
-//			try {
-//				formatDate = sdf.parse(form.getBirthDate());
-//			} catch (ParseException e) {
-	//
-//				e.printStackTrace();
-//			}
-//	       user.setBirthDate(formatDate);
-//	       user.setAddress(form.getAddress());
-//	       user.setIs_open(false);
-//	       user.setLoginId(form.getLoginId());
-//	       user.setCreateDate(new Timestamp(System.currentTimeMillis()));
-//	       user.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-	//
-//			return user;
-//		}
+
+
 
 
 }

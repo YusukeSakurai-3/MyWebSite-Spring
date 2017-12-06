@@ -24,11 +24,49 @@ public class Review implements Serializable {
 
 	public Review() {}
 
+	/**
+	 * レビュー情報を更新する時に使用
+	 * @param updateId
+	 * @param form
+	 * @param userId
+	 */
+	public Review(int updateId,ItemReviewForm form,int userId) {
+		this.id = updateId;
+		this.userId = userId;
+		this.itemId = Integer.parseInt(form.getItemId());
+		this.title = form.getTitle();
+		if(form.getUploadFile().isEmpty()) {
+		     //this.fileName = "noimage.img";
+			this.fileName = "noimage.png";
+		}
+		else
+		{
+			this.fileName = form.getUploadFile().getOriginalFilename();
+		}
+		this.reviewText = form.getReviewText();
+		this.evaluation = Integer.parseInt(form.getEvaluation());
+
+	}
+
+
+
+	/**
+	 * レビュー情報を登録する時に使用
+	 * @param form
+	 * @param userId
+	 */
 	public Review(ItemReviewForm form,int userId) {
 		this.userId = userId;
 		this.itemId = Integer.parseInt(form.getItemId());
 		this.title = form.getTitle();
-		this.fileName = form.getUploadFile().getOriginalFilename();
+		if(form.getUploadFile().isEmpty()) {
+		     //this.fileName = "noimage.img";
+			this.fileName = "noimage.png";
+		}
+		else
+		{
+			this.fileName = form.getUploadFile().getOriginalFilename();
+		}
 		this.reviewText = form.getReviewText();
 		this.evaluation = Integer.parseInt(form.getEvaluation());
 

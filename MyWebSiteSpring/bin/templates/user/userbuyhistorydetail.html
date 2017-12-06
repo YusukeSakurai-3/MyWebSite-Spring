@@ -52,9 +52,9 @@
                        <td>
                        <form th:action="itemreview" >
                        <input type="hidden" name="itemId" th:value="${item.getId()}"/>
-                       <button class="btn btn-primary col-sm-4" type="submit">レビューする</button>
-                       <button class="btn btn-default col-sm-4" >レビュー済</button>
+                       <button th:unless="${isReviewed.get(item.getId())}" class="btn btn-primary col-sm-4" type="submit">レビューする</button>
                        </form>
+                       <button th:if="${isReviewed.get(item.getId())}" class="btn btn-default col-sm-4" >レビュー済</button>
                       </td>
                          <td class="col-md-2" th:inline="text">[[${item.getPrice()}]]円</td>
                       </tr>

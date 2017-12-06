@@ -2,7 +2,9 @@ package com.web.model;
 
 import java.io.Serializable;
 
-
+/**
+ * ランキングページで使用
+ * */
 public class BuyRanking implements Serializable {
 	private int itemId;
 	private long sum;

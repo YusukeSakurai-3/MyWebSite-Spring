@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+  <title>レビュー詳細</title>
+  <body>
+    <br/><br/><br/><br/>
+
+    <!-- body -->
+
+    <div class="container">
+    <h1 align="center">商品レビュー詳細</h1>
+
+
+
+      <form th:align="right" action="/itemreviewupdate" >
+						<input type="hidden" name="updateId" th:value="${review.getId()}"/>
+						<button class="btn btn-primary" type="submit" >
+							レビューを変更する
+						</button>
+					</form>
+          <br/>
+
+                  <form th:align="right" action="#Modal" >
+						<input type="hidden" name="delete" value=""/>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Modal" >レビューを削除する</button>
+
+				</form>
+				</div>
+				<!-- モーダルダイアログ -->
+				<div class="modal" id="Modal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-show="true" data-keyboard="false" data-backdrop="static">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">削除</h4>
+							</div><!-- /modal-header -->
+							<div class="modal-body">
+								<p class="recipient">本当に削除しますか？</p>
+							</div>
+							<div class="modal-footer">
+
+						<form action="itemreviewdetail" method="POST">
+						<input type="hidden" name="deleteId" th:value="${review.getId()}"/>
+						<button class="btn btn-danger" type="submit" name="action" >
+							レビューを削除する
+						</button>
+					</form>
+							</div>
+						</div> <!-- /.modal-content -->
+					</div> <!-- /.modal-dialog -->
+				</div>
+
+
+      <br/><br/>
+
+    <div class="container">
+
+   <div class="container">
+        <h4 th:inline="text">[[${session.loginUser.getName()}]]さんのレビュー</h4>
+     <div class="panel">
+       <div class="panel-body">
+     <div class="col-md-6">
+     <img  th:src="${reviewImg}"  width="400" height="400" />
+     </div>
+       <div class="col-md-6">
+         <h2 th:inline="text">[[${review.getTitle()}]]</h2>
+         <div class="star-rating2">
+             <div class="star-rating-front2" th:style="|width:${review.getEvaluation() * 20}%|">★★★★★</div>
+             <div class="star-rating-back2">★★★★★</div>
+        </div>
+        <br/><br/>
+          <div th:inline="text">[[${review.getReviewText()}]]</div>
+        </div>
+     </div>
+  </div><br/>
+  </div>
+  </div>
+
+
+
+
+  </body>
+</html>
