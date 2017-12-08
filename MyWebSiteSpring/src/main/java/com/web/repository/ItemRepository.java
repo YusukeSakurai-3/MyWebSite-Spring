@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.web.model.Item;
+import com.web.model.ItemData;
 
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
@@ -26,6 +27,18 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 	List<Item> findByName(String searchWord);
 
 	Page<Item> findByNameContains(String searchWord,Pageable pageable);
+
+	Page<Item> findAll(Pageable pageable);
+
+
+//	count(i.buyDetail.itemId)
+	@Query("select new com.web.model.ItemData(i, 12) from Item i " +
+			"left outer JOIN i.buyDetailList "+
+			" group by i.id" )
+//			"on i.id = i.buyDetail ")
+	List<ItemData> findItemData();
+
+
 
 
 }

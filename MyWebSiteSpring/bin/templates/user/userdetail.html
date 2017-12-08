@@ -93,8 +93,8 @@
       </div>
       <br/><br/>
 
-      <div class="col-xs-4">
-        <a href="/userlist">ユーザー一覧画面へ</a>
+      <div th:if="${session.loginUser!=null and session.loginUser.getLoginId().equals('admin')}" class="col-xs-4">
+        <a  href="/userlist">ユーザー一覧画面へ</a>
         <a href="/itemmaster">商品マスタ一覧画面へ</a>
       </div>
       <br/><br/><br/>

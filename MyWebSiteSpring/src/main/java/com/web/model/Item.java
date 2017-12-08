@@ -1,18 +1,25 @@
 package com.web.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Item implements Serializable {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+
 	private int id;
 	private String name;
 	private String detail;
@@ -20,6 +27,16 @@ public class Item implements Serializable {
 	private String fileName;
 	private Date createDate;
 	private Date updateDate;
+
+	@OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+    @JoinColumn(name = "itemId")
+	private List<BuyDetail> buyDetailList;
+
+
+	public Item() {
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -61,6 +78,21 @@ public class Item implements Serializable {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getFormatCreateDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+		return sdf.format(createDate);
+	}
+
+
+	public List<BuyDetail> getBuyDetailList() {
+		return buyDetailList;
+	}
+
+
+	public void setBuyDetailList(List<BuyDetail> buyDetailList) {
+		this.buyDetailList = buyDetailList;
 	}
 
 

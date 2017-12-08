@@ -19,15 +19,12 @@ import com.web.model.Point;
 import com.web.model.User;
 import com.web.repository.BuyDetailRepository;
 import com.web.repository.BuyRepository;
-import com.web.repository.DeliveryMethodRepository;
 import com.web.repository.PointRepository;
 import com.web.util.Util;
 
 @Controller
 public class BuyResultController {
 
-	@Autowired
-	private DeliveryMethodRepository deliveryMethodRepository;
 
 	@Autowired
 	private BuyDetailRepository buyDetailRepository;

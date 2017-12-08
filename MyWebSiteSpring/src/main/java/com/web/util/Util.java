@@ -113,7 +113,7 @@ public class Util {
 	 */
 	public static String getsubString(String str, int endIndex) {
 		if(str.length() < endIndex) {
-			return str +"⋯";
+			return str;
 		}else {
 			return str.substring(0, endIndex - 1)+"⋯";
 		}
