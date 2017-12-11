@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class BuyDetail implements Serializable {
@@ -18,9 +16,9 @@ public class BuyDetail implements Serializable {
 	private int buyId;
 	private int itemId;
 
-	@ManyToOne
-	@JoinColumn(name="itemId", insertable=false, updatable=false)
-	private Item item;
+//	@ManyToOne
+//	@JoinColumn(name="itemId", insertable=false, updatable=false)
+//	private Item item;
 
 
 	public BuyDetail(){
@@ -53,15 +51,15 @@ public class BuyDetail implements Serializable {
 		this.itemId = itemId;
 	}
 
-
-	public Item getItem() {
-		return item;
-	}
-
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
+//
+//	public Item getItem() {
+//		return item;
+//	}
+//
+//
+//	public void setItem(Item item) {
+//		this.item = item;
+//	}
 
 
 

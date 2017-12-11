@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+  <title>商品マスタ登録 </title>
+      <!--画像読み込み用-->
+  <script src="js/fileupload.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <body>
+    <br/><br/><br/><br/>
+    <!-- body -->
+
+
+      <h1 align="center">商品登録</h1>
+    <div class="container">
+      <div class="text-right">
+        <a href="itemmaster">商品マスタ一覧へ</a>
+      </div>
+
+  <div class="alert alert-danger" role="alert">itemCreateError</div>
+
+
+
+      <br/><br/>
+
+
+      <div class="container">
+
+      	<div class="row">
+      	   <div class="col-sm-6">
+                  <form method="POST" action="/itemmastercreate" id="itemcreate" class="form-horizontal" enctype="multipart/form-data">
+                  </form>
+                    <div class="form-group">
+                      <label  class="control-label col-sm-2">商品名</label>
+                      <div class="col-sm-6">
+                        <input  type="text" form="itemcreate"  name="name" class="form-control"  value=""/>
+                      </div>
+                    </div>
+                    <br/><br/>
+
+                    <div class="form-group form-margin">
+                      <label  class="control-label col-sm-2">価格</label>
+                      <div class="col-sm-6">
+                        <input type="text" form="itemcreate" name="price" value="" class="form-control" />
+                      </div>
+                    </div>
+            </div>
+           </div>
+           <br/>
+
+            <div class="form-group">
+              <div class="col-sm-6">
+              <label >商品詳細</label>
+              <textarea rows="16" form="itemcreate" class="form-control" name="detail" ></textarea>
+            </div>
+
+         <div class="col-md-6">
+           <label >写真</label>
+                   <div class="imagePreview"></div>
+                   <div class="input-group">
+                       <label class="input-group-btn">
+                           <span class="btn btn-primary">
+                               Choose File<input type="file" form="itemcreate" name="uploadFile" style="display:none" class="uploadFile" />
+                           </span>
+                       </label>
+                       <input type="text" class="form-control" readonly=""/>
+                   </div><br/><br/>
+           </div>
+         </div>
+      </div>
+      <div class="text-center">
+      <button class="btn btn-primary col-sm-4 col-sm-offset-4" form="itemcreate"  type="submit">商品登録</button>
+     </div>
+
+   <br/><br/>
+   </div>
+  </body>
+</html>

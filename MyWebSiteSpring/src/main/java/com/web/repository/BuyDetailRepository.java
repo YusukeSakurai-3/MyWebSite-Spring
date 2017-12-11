@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.web.model.BuyDetail;
 import com.web.model.BuyRanking;
-import com.web.model.ItemData;
 
 public interface BuyDetailRepository extends CrudRepository<BuyDetail, Long> {
 
@@ -26,11 +25,11 @@ public interface BuyDetailRepository extends CrudRepository<BuyDetail, Long> {
 	@Query("select new java.lang.Long(count(b.itemId)) from BuyDetail b WHERE b.itemId = :itemId GROUP BY b.itemId")
 	List<Long> findCount(@Param("itemId")int itemId);
 
-	@Query("select new com.web.model.ItemData(b.item,count(b.itemId)) from BuyDetail b " +
-			"right outer join b.item " +
-			"on b.itemId = b.item.id " +
-			"group by b.item.id")
-	List<ItemData> findItemData();
+//	@Query("select new com.web.model.ItemData(b.item,count(b.itemId)) from BuyDetail b " +
+//			"right outer join b.item " +
+//			"on b.itemId = b.item.id " +
+//			"group by b.item.id")
+//	List<ItemData> findItemData();
 
 
 

@@ -31,7 +31,6 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 	Page<Item> findAll(Pageable pageable);
 
 
-//	count(i.buyDetail.itemId)
 	@Query("select new com.web.model.ItemData(i, 12) from Item i " +
 			"left outer JOIN i.buyDetailList "+
 			" group by i.id" )

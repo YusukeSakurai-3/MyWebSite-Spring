@@ -18,7 +18,7 @@
 				<div class="col-md-3" th:each="item:${itemList}" >
 					<div class="card">
 						<div class="card-image">
-							<a href="/item"  th:href="@{/item(itemId=${item.getId()})}" >
+							<a th:href="@{/item(itemId=${item.getId()})}" >
 							<img  th:src="${itemImg.get(item.getId())}" width="260" height="250"/></a>
 						</div>
 						<div class="card-content">
