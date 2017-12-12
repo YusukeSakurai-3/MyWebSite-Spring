@@ -7,10 +7,11 @@
 <body>
 
 <h1 th:inline="text" align="center">検索結果</h1>
-<h4 th:inline="text" align="center">検索結果300件</h4>
+
 
 
   <div class="container">
+  <h4 th:inline="text" >[[${pageNum + 1}]]ページ目　検索結果:[[${itemPage.getTotalElements()}]]件  </h4>
   	 <div class="row">
       <div class="col-md-3" th:each="item:${itemList}">
         <br/>
@@ -34,29 +35,55 @@
 <br/>
 <br/>
 
- <div class="text-center">
-			<ul class="pagination">
+     <!--キーワード検索  -->
 
-				<!-- １ページ戻るボタン  -->
-				<li th:if="${pageNum == 0}"><a><font color="black">≪ 前へ</font></a></li>
-				<li th:if="${pageNum > 0}"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${pageNum - 1})}">≪ 前へ</a></li>
-				<li th:if="${pageNum > 0}" th:inline="text"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${0})}">1</a></li>
-				<li><a>⋯</a></li>
+    <!--ページング処理  -->
+     <div th:with="s=${page.getPageStart()},t=${page.getPageEnd()}"  th:if="${itemPage.getTotalElements() != 0 and not detail}" class="text-center">
+		<ul class="pagination">
+		<li th:if="${pageNum == 0}"><a><font color="black">≪ 前へ</font></a></li>
+		<li th:if="${pageNum > 0}">
+		<a th:href="@{/itemSearchWord(searchWord=${searchWord},pageNum=${pageNum - 1})}">
+		≪ 前へ</a></li>
 
 
-				<li><a>⋯</a></li>
+		<li  th:each="i:${#numbers.sequence(s, t)}" th:inline="text">
+		<a th:href="@{/itemSearchWord(searchWord=${searchWord},pageNum=${ i - 1})}">
+		[[${ i }]]</a></li>
 
-				<li th:inline="text"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${pageMax - 1})}">[[${pageMax}]]</a></li>
 
-				<!-- 1ページ送るボタン -->
-                <li th:if="${pageNum >= pageMax - 1}"><a><font color="black">次へ ≫</font></a></li>
+        <!-- 1ページ送るボタン -->
+        <li th:if="${pageNum >= pageMax - 1}"><a><font color="black">次へ ≫</font></a></li>
 
-				<li th:if="${pageMax - 1  > pageNum}"><a th:href="@{/itemSearch(searchWord=${searchWord},pageNum=${pageNum + 1})}">次へ ≫</a></li>
+	   <li th:if="${pageMax - 1  != pageNum}"><a th:href="@{/itemSearchWord(searchWord=${searchWord},pageNum=${pageNum + 1})}">次へ ≫</a></li>
+	   </ul>
+    </div>
 
-			</ul>
-		</div>
 
-	</div>
+    <!--詳細検索  -->
+     <!--ページング処理  -->
+     <div th:with="s=${page.getPageStart()},t=${page.getPageEnd()}"  th:if="${itemPage.getTotalElements() != 0 and detail}" class="text-center">
+		<ul class="pagination">
+		<li th:if="${pageNum == 0}"><a><font color="black">≪ 前へ</font></a></li>
+		<li th:if="${pageNum > 0}">
+		<a th:href="@{/itemSearchDetail(searchWord=${form.getSearchWord()},startPrice=${form.getStartPrice()},endPrice=${form.getEndPrice()},pageNum=${pageNum - 1})}">
+		≪ 前へ</a></li>
+
+
+		<li  th:each="i:${#numbers.sequence(s, t)}" th:inline="text">
+		<a th:href="@{/itemSearchDetail(searchWord=${form.getSearchWord()},startPrice=${form.getStartPrice()},endPrice=${form.getEndPrice()},pageNum=${ i - 1})}">
+		[[${ i }]]</a></li>
+
+
+        <!-- 1ページ送るボタン -->
+        <li th:if="${pageNum >= pageMax - 1}"><a><font color="black">次へ ≫</font></a></li>
+
+	   <li th:if="${pageMax - 1  != pageNum}"><a th:href="@{/itemSearchDetail(searchWord=${form.getSearchWord()},startPrice=${form.getStartPrice()},endPrice=${form.getEndPrice()},pageNum=${pageNum + 1})}">次へ ≫</a></li>
+	   </ul>
+    </div>
+
+  </div>
+
+
 
   </body>
 </html>

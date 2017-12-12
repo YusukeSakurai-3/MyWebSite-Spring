@@ -37,6 +37,17 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
 //			"on i.id = i.buyDetail ")
 	List<ItemData> findItemData();
 
+	Page<Item> findByNameContainsAndPriceGreaterThanEqual(String searchWord, int startPrice,Pageable pageable);
+
+
+	Page<Item> findByNameContainsAndPriceGreaterThanEqualAndPriceLessThanEqual(String searchWord, int patrtPrice,
+			int endPrice,Pageable pageable );
+
+	Page<Item> findByNameContainsAndPriceLessThanEqual(String searchWord, int endPrice, Pageable pageable);
+
+
+
+
 
 
 

@@ -1,10 +1,8 @@
 package com.web.form;
 
-import java.io.Serializable;
-
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class UserUpdateForm implements Serializable {
+public class UserUpdateMasterForm {
 
 	private String userId;
 	private String loginId;
@@ -22,8 +20,21 @@ public class UserUpdateForm implements Serializable {
 	private String isOpen;
 
 
+	private int pointId;
+	private int point;
 
-
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -42,6 +53,18 @@ public class UserUpdateForm implements Serializable {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
+	public String getPrePassword() {
+		return prePassword;
+	}
+	public void setPrePassword(String prePassword) {
+		this.prePassword = prePassword;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
 	public String getBirthDate() {
 		return birthDate;
 	}
@@ -54,38 +77,24 @@ public class UserUpdateForm implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getPrePassword() {
-		return prePassword;
-	}
-	public void setPrePassword(String prePassword) {
-		this.prePassword = prePassword;
-	}
-	public String getLoginId() {
-		return loginId;
-	}
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public String getIsOpen() {
 		return isOpen;
 	}
 	public void setIsOpen(String isOpen) {
 		this.isOpen = isOpen;
 	}
-	public String getCreateDate() {
-		return createDate;
+	public int getPointId() {
+		return pointId;
 	}
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setPointId(int pointId) {
+		this.pointId = pointId;
 	}
-
-
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
 
 
 }

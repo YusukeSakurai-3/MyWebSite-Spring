@@ -17,6 +17,10 @@ import com.web.model.Review;
 public class Util {
 	// ファイルをアップロードする場所
     public static final String UPLOAD_PAGE = "/Users/sakurai/git/MyWebSite-Spring/MyWebSiteSpring/bin/static/img/";
+    public static final int MINUS_NUM = -3;
+    public static final int STRING_NUM = -2;
+    public static final int NULL_NUM = -1;
+
 
 
 	/**商品のListに対してfileNameをhtmlで読み込める形にして返す
@@ -117,6 +121,31 @@ public class Util {
 		}else {
 			return str.substring(0, endIndex - 1)+"⋯";
 		}
+	}
+
+	/**
+	 * 文字を数値に変換する
+	 * @param value 構文解析対象の int 表現を含む String
+	 *
+	 */
+	public static int numCheck(String value) {
+
+	    try {
+	        // intに変換して返す
+	    		int num = Integer.parseInt(value);
+	    		if (num < 0)
+	    			return MINUS_NUM;
+	    		else
+	    			return Integer.parseInt(value);
+
+	    } catch ( NumberFormatException e ) {
+	    	if(value.length()!=0) {
+	    		return STRING_NUM;
+	    	}else {
+
+	        return NULL_NUM;
+	    	}
+	  }
 	}
 
 

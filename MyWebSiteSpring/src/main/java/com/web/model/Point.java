@@ -42,6 +42,13 @@ public class Point implements Serializable {
 		this.point = 0;
 	}
 
+
+	public Point(int id,int userId,int point){
+		this.id = id;
+		this.userId = userId;
+		this.point = point;
+	}
+
 	//ポイント情報を更新する時に使用するコンストラクタ
 	public Point(Point userPoint, int userId, int usingPoint, int preTotalPrice) {
 		this.id = userPoint.getId();

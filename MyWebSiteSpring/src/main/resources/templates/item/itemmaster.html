@@ -3,10 +3,12 @@
  <div th:include="head"></div>
 <title>商品マスタ一覧</title>
 
+
   <body>
       <br/><br/><br/>
     <!-- body -->
     <div class="container">
+    <div th:if="${msg!=null}" th:inline="text" class="alert alert-success" role="alert">[[${msg}]]</div>
 
 <h1 th:align="center">商品マスタ一覧</h1>
       <div class="text-right">
@@ -22,33 +24,13 @@
                 <div class="panel-title">検索条件</div>
             </div>
             <div class="panel-body">
-              <form action="ItemMaster" class="form-horizontal">
-                <div class="form-group">
-                  <label for="code" class="control-label col-sm-2">商品ID</label>
-                  <div class="col-sm-6">
-                    <input type="text" name="itemId"  class="form-control"  value=""/>
-                  </div>
-                </div>
+              <form action="/itemmaster" class="form-horizontal">
+
                 <div class="form-group">
                   <label for="name" class="control-label col-sm-2">商品名</label>
                   <div class="col-sm-6">
-                    <input type="text" name="search_word"  class="form-control"  value="" />
+                    <input type="text" name="searchWord" class="form-control"  value="" />
                   </div>
-                </div>
-             <!-- 登録日 -->
-                <div class="form-group">
-                  <label for="continent" class="control-label col-sm-2">登録日</label>
-                  <div class="row">
-                    <div class="col-sm-2">
-                      <input type="date" name="startDate"  class="form-control" size="30"/>
-                    </div>
-                    <div class="col-xs-1 text-center">
-                      ~
-                    </div>
-                    <div class="col-sm-2">
-                      <input type="date" name="endDate"  class="form-control" size="30"/>
-                    </div>
-                </div>
                 </div>
                 <!-- 価格 -->
                 <div class="form-group">
@@ -76,7 +58,7 @@
 
         <div class="table-responsive">
           <div th:inline="text">[[${pageNum + 1}]]ページ目</div>
-           <div th:inline="text">商品総数:[[${totalElements}]] 検索結果:机</div>
+           <div th:inline="text">商品総数:[[${totalElements}]] 検索ワード:[[${searchWord}]]</div>
            <table class="table table-striped table-bordered">
                <thead>
                  <tr>
@@ -114,32 +96,28 @@
       </div>
       <br/><br/><br/>
 
-     <div class="text-center">
+
+    <!--ページング処理  -->
+     <div th:with="s=${page.getPageStart()},t=${page.getPageEnd()}"  th:if="${TotalElements != 0}" class="text-center">
 		<ul class="pagination">
-
-			<!-- １ページ戻るボタン  -->
-			<li th:if="${pageNum == 0}"><a><font color="black">≪ 前へ</font></a></li>
-			<li th:if="${pageNum > 0}"><a th:href="@{/itemmaster(searchWord=${searchWord},pageNum=${pageNum - 1})}">≪ 前へ</a></li>
-			<li th:if="${pageNum != 0 and pageNum != 1}" th:inline="text"><a th:href="@{/itemmaster(pageNum=${0})}">1</a></li>
-			<li th:if="${pageNum != 0 and pageNum != 1 and pageNum != 2}"><a>⋯</a></li>
+		<li th:if="${pageNum == 0}"><a><font color="black">≪ 前へ</font></a></li>
+		<li th:if="${pageNum > 0}">
+		<a th:href="@{/itemmaster(searchWord=${searchWord},startPrice=${form.getStartPrice()},endPrice=${form.getEndPrice()},pageNum=${pageNum - 1})}">
+		≪ 前へ</a></li>
 
 
-            <li th:if="${pageMax - 1 == pageNum}" th:inline="text"><a th:href="@{/itemmaster(pageNum=${pageNum - 2})}">[[${pageNum - 1}]]</a></li>
-			<li th:if="${pageNum != 0 }" th:inline="text"><a th:href="@{/itemmaster(pageNum=${pageNum - 1})}">[[${pageNum}]]</a></li>
-			<li th:inline="text"><a th:href="@{/itemmaster(pageNum=${pageNum})}">[[${pageNum + 1 }]]</a></li>
-			<li th:unless="${pageMax - 1 == pageNum}" th:inline="text"><a th:href="@{/itemmaster(pageNum=${pageNum + 1})}">[[${pageNum + 2}]]</a></li>
-			<li th:if="${pageNum == 0}" th:inline="text"><a th:href="@{/itemmaster(pageNum=${pageNum + 2})}">[[${pageNum + 3}]]</a></li>
+		<li  th:each="i:${#numbers.sequence(s, t)}" th:inline="text">
+		<a th:href="@{/itemmaster(searchWord=${searchWord},startPrice=${form.getStartPrice()},endPrice=${form.getEndPrice()},pageNum=${ i - 1})}">
+		[[${ i }]]</a></li>
 
-			<li th:if="${pageNum != pageMax - 1 and pageNum != pageMax - 2 and pageNum != pageMax - 3 }"><a>⋯</a></li>
 
-			<li th:if="${pageNum != pageMax - 1 and pageNum != pageMax - 2}" th:inline="text"><a th:href="@{/itemmaster(pageNum=${pageMax - 1})}">[[${pageMax}]]</a></li>
+        <!-- 1ページ送るボタン -->
+        <li th:if="${pageNum >= pageMax - 1}"><a><font color="black">次へ ≫</font></a></li>
 
-			<!-- 1ページ送るボタン -->
-            <li th:if="${pageNum >= pageMax - 1}"><a><font color="black">次へ ≫</font></a></li>
-
-			<li th:if="${pageMax - 1  != pageNum}"><a th:href="@{/itemmaster(pageNum=${pageNum + 1})}">次へ ≫</a></li>
-
-		</ul>
+	   <li th:if="${pageMax - 1  != pageNum}"><a th:href="@{/itemmaster(searchWord=${searchWord},startPrice=${form.getStartPrice()},endPrice=${form.getEndPrice()},pageNum=${pageNum + 1})}">次へ ≫</a></li>
+	   </ul>
     </div>
+
+
   </body>
 </html>

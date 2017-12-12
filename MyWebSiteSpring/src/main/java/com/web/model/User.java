@@ -4,15 +4,22 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import com.web.form.UserCreateForm;
 import com.web.form.UserUpdateForm;
+import com.web.form.UserUpdateMasterForm;
 import com.web.util.Util;
 
 @Entity
@@ -30,6 +37,12 @@ public class User implements Serializable {
 	private String password;
 	private Date createDate;
 	private Date updateDate;
+
+
+	@OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+    @JoinColumn(name = "userId")
+	private List<Point> point;
+
 
 
 	public User() {}
@@ -79,6 +92,45 @@ public class User implements Serializable {
 		this.birthDate = formatDate;
 		this.is_open = (form.getIsOpen()).equals("open")?true:false;
 		this.updateDate = new Timestamp(System.currentTimeMillis());
+
+
+	}
+
+	/**
+	 * ユーザーを管理画面から更新する時に使用する
+	 */
+	public User(UserUpdateMasterForm form) {
+		this.id = Integer.parseInt(form.getUserId());
+		this.name = form.getUserName();
+		this.loginId = form.getLoginId();
+		if(!(form.getPassword()).equals("")) {
+		    this.password = Util.toCode(form.getPassword());
+		}else {
+			this.password = form.getPrePassword();
+		}
+		this.address = form.getAddress();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdff = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		// Date型変換
+		Date formatDate = null;
+		try {
+			formatDate = sdf.parse(form.getBirthDate());
+			this.createDate = sdff.parse(form.getCreateDate());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		this.birthDate = formatDate;
+		this.is_open = (form.getIsOpen()).equals("open")?true:false;
+		this.updateDate = new Timestamp(System.currentTimeMillis());
+
+
+		//ポイント情報
+		ArrayList<Point> point = new ArrayList<Point>();
+		Point userPoint = new Point(form.getPointId(),Integer.parseInt(form.getUserId()),form.getPoint());
+		point.add(userPoint);
+		this.point = point;
+
+
 	}
 
 
@@ -152,6 +204,21 @@ public class User implements Serializable {
 		return sdf.format(createDate);
 	}
 
+	public List<Point> getPoint() {
+		return point;
+	}
+
+	public void setPoint(List<Point> point) {
+		this.point = point;
+	}
+
+	public int getUserPoint() {
+		return point.get(0).getPoint();
+	}
+
+	public int getUserPointId() {
+		return point.get(0).getId();
+	}
 
 
 }

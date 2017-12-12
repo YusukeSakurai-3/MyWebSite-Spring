@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+  <title>ユーザー情報更新</title>
+
+
+  <body>
+      <br/><br/><br/>
+
+    <!-- body -->
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="panel-body">
+            <form method="POST" th:action="@{/userUpdateMaster}" class="form-horizontal">
+            <input type="hidden" name="userId" th:value="${user.getId()}" />
+            <input type="hidden" name="loginId" th:value="${user.getLoginId()}" />
+            <input  type="hidden" name="createDate" class="form-control" th:value="${user.getStringCreateDate()}" />
+              <div class="form-group">
+                <label for="user-id" class="control-label col-sm-2">ログインID</label>
+                <div  class="form-control-static col-sm-6" th:inline="text">
+                  [[${user.getLoginId()}]]
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="control-label col-sm-2">パスワード</label>
+                <div class="col-sm-6">
+                  <input type="password" name="password" class="form-control" />
+                  <input type="hidden" name="prePassword" th:value="${user.getPassword()}"/>
+                </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="password-confirm" class="control-label col-sm-2">パスワード(確認)</label>
+                <div class="col-sm-6">
+                  <input type="password" name="passwordConfirm"  class="form-control" />
+                </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="user-name" class="control-label col-sm-2">ユーザ名</label>
+                <div class="col-sm-6">
+                  <input type="text" name="userName"  class="form-control" th:value="${user.getName()}" />
+                </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="continent" class="control-label col-sm-2">生年月日</label>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input  type="date" name="birthDate"  class="form-control" size="30" th:value="${user.getStringBirthDate()}"/>
+                  </div>
+              </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="continent" class="control-label col-sm-2">住所</label>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input  type="text" name="address"  class="form-control" size="30" th:value="${user.getAddress()}" />
+                  </div>
+              </div>
+              </div>
+               <div class="form-group form-margin">
+                <label for="continent" class="control-label col-sm-2">保有ポイント</label>
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input  type="text" name="point"  class="form-control" size="30" th:value="${user.getUserPoint()}" />
+                    <input type="hidden"  name="pointId"  class="form-control" size="30" th:value="${user.getUserPointId()}" />
+                  </div>
+              </div>
+              </div>
+              <div class="form-group form-margin">
+                <label for="continent" class="control-label col-sm-2">ほしい物リスト</label>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <select class="form-control" name="isOpen" style="position: relative;top :4px">
+                    <option value="open">公開</option>
+                    <option value="close">非公開</option>
+                    </select>
+                  </div>
+              </div>
+              </div>
+
+              <div>
+                <button type="submit" value="更新" class="btn btn-primary center-block form-submit">更新</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-4">
+        <a href="/userlist">戻る</a>
+      </div>
+
+
+    </div>
+  </body>
+</html>

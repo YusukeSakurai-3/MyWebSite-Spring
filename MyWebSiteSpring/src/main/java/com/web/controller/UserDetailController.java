@@ -40,7 +40,7 @@ public class UserDetailController {
 		User user = (User) session.getAttribute("loginUser");
 
 		//ポイント情報を取得
-		Point userPoint = pointRepository.findByUserId(user.getId());
+		List<Point> userPoint = (List<Point>)pointRepository.findByUserId(user.getId());
 		//購入履歴情報を取得
 		List<Buy> buyData = buyRepository.findByUserId(user.getId());
 
@@ -49,7 +49,7 @@ public class UserDetailController {
 		HashMap<Integer,String> deliveryMethodMap = DeliveryMethod.getDeliveryMethodName(deliveryMethodList);
 
 		model.addAttribute("user", user);
-		model.addAttribute("point", userPoint.getPoint());
+		model.addAttribute("point", userPoint.get(0).getPoint());
 		model.addAttribute("buyDataList", buyData);
 		model.addAttribute("deliveryMethodMap", deliveryMethodMap);
 

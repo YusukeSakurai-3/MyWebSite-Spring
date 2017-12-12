@@ -43,7 +43,7 @@
         </li>
 
      <li th:if="${index!=null}">
-      <form  class="navbar-form navbar-right" th:action="@{/itemSearch}">
+      <form  class="navbar-form navbar-right" th:action="@{/itemSearchWord}">
         <input type="text" name="searchWord" class="form-control" placeholder="Search" value="" size="50"/>
         <button type="submit" class="btn btn-primary">検索</button>
       </form>
@@ -90,13 +90,13 @@
                         <div class="panel-title"></div>
 
                     <div class="panel-body">
-                      <form  th:action="@{/itemSearch}" class="form-horizontal" style="display: inline">
+                      <form  th:action="@{/itemSearchDetail}" class="form-horizontal" style="display: inline">
                         <div class="form-group">
                           <label  class="control-label col-sm-3">キーワード</label>
                           <div class="col-sm-6">
-                            <input type="text" name="searchWord"  class="form-control" value=""/>
-                            and<input type="radio" name="select" value="and"/>
-                             or<input type="radio" name="select" value="or"/>
+                           <input type="text" name="searchWord"  class="form-control" value=""/>
+                           <!--  and<input type="radio" name="select" value="and"/>
+                             or<input type="radio" name="select" value="or"/> -->
                           </div>
                         </div>
 
@@ -104,7 +104,7 @@
                           <label for="continent" class="control-label col-sm-3">価格</label>
                           <div class="row">
                             <div class="col-sm-3">
-                              <input type="text" name="startPrice"  class="form-control" size="30"/>
+                              <input type="text" name="startPrice" class="form-control" size="30"/>
                             </div>
                             <div class="col-xs-1 text-center">-</div>
                             <div class="col-sm-3">

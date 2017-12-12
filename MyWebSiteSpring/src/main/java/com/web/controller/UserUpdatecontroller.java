@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.form.UserUpdateForm;
 import com.web.model.Item;
+import com.web.model.Point;
 import com.web.model.User;
+import com.web.repository.PointRepository;
 import com.web.repository.UserRepository;
 
 @RequestMapping("/userupdate")
@@ -28,6 +31,10 @@ public class UserUpdatecontroller {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	//追加
+	@Autowired
+	private PointRepository pointRepository;
 
 	@GetMapping
 	public String input(@ModelAttribute UserUpdateForm form,Model model) {
@@ -51,9 +58,12 @@ public class UserUpdatecontroller {
 			//カート情報を保持する
 			ArrayList<Item> cart = (ArrayList<Item>)session.getAttribute("cart");
 
+			List<Point> point =(List<Point>) pointRepository.findByUserId(Integer.parseInt(form.getUserId()));
+
 
 			//ユーザー更新する
 			User updateUser = new User(form);
+			updateUser.setPoint(point);
 			userRepository.save(updateUser);
 
 			//セッション削除(ユーザ詳細画面に戻ったとき、情報が更新されているように)

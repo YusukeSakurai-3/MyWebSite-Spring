@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+<title>ユーザー一覧</title>
+  </head>
+   <div th:include="head"></div>
+  <body>
+      <br/><br/><br/>
+    <!-- body -->
+    <div class="container">
+
+
+<div th:if="${userActionMessage!=null}" class="alert alert-success">[[${userActionMessage}]]</div>
+
+    <h1 align="center">ユーザー一覧</h1>
+
+      <div class="panel-body">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">検索条件</div>
+            </div>
+            <div class="panel-body">
+              <form  th:action="@{/userlistSearch}" th:object="${userSearchForm}" class="form-horizontal">
+                <div class="form-group">
+                  <label for="code" class="control-label col-sm-2">ログインID</label>
+                  <div class="col-sm-6">
+                    <input type="text" name="loginId"  class="form-control" th:field="*{loginId}"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="name" class="control-label col-sm-2">ユーザ名</label>
+                  <div class="col-sm-6">
+                    <input type="text" name="searchName"  class="form-control" th:field="*{searchName}"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="continent" class="control-label col-sm-2">生年月日</label>
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <input type="date" name="startDate"  class="form-control" size="30" th:field="*{startDate}"/>
+                    </div>
+                    <div class="col-xs-1 text-center">
+                      ~
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="date" name="endDate"  class="form-control"  th:field="*{endDate}"/>
+                    </div>
+                </div>
+                </div>
+                <div class="text-right">
+                  <button type="submit" value="検索" class="btn btn-primary form-submit">検索</button>
+                </div>
+              </form>
+
+
+          </div>
+        </div>
+        <div th:if="${userList.size()==0}">条件を満たすユーザーはいませんでした</div>
+        <div th:if="${userList.size()!=0}" th:inline="text">結果:[[${userList.size()}]]件のユーザー</div>
+
+        <div th:if="${userList.size()!=0}" class="table-responsive">
+             <table class="table table-striped table-bordered">
+               <thead>
+                 <tr>
+                   <th>ログインID</th>
+                   <th>ユーザ名</th>
+                   <th>生年月日</th>
+                   <th>住所</th>
+                   <th></th>
+                 </tr>
+               </thead>
+               <tbody >
+
+                 <tr th:each="user:${userList}">
+                   <td th:inline="text">[[${user.getLoginId()}]]</td>
+                   <td th:inline="text">[[${user.getName()}]]</td>
+                   <td th:inline="text">[[${user.getFormatBirthDate()}]]</td>
+                   <td th:inline="text">[[${user.getAddress()}]]</td>
+                   <td>
+                     <a class="btn btn-primary" th:href="@{/userDetailMaster(userId=${user.getId()})}">詳細</a>
+                     <a class="btn btn-success" th:href="@{/userUpdateMaster(userId=${user.getId()})}">更新</a>
+                     <a class="btn btn-danger" th:href="@{/userDeleteMaster(userId=${user.getId()})}">削除</a>
+                   </td>
+                 </tr>
+
+               </tbody>
+             </table>
+           </div>
+         </div>
+      </div>
+
+
+
+  </body>
+</html>

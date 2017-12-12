@@ -22,7 +22,7 @@
 
       	<div class="row">
             <div class="col-sm-12">
-                  <form method="post" id="itemupdate" action="/itemmasterupdate" class="form-horizontal" enctype="multipart/form-data">
+                  <form method="post" id="itemupdate" th:action="@{/itemmasterupdate}" th:object="${itemUpdateForm}" class="form-horizontal" enctype="multipart/form-data">
                   <input type="hidden" name="id" th:value="${item.getId()}"/>
                   <input type="hidden" name="preFileName" th:value="${item.getFileName()}"/>
                   <input type="hidden" name="createDate" th:value="${item.getStringCreateDate()}"/>
@@ -37,12 +37,14 @@
                       <label class="control-label col-sm-2 ">商品名</label>
                       <div class="col-sm-6">
                         <input form="itemupdate" type="text" class="form-control" name="name" th:value="${item.getName()}"/>
+                        <span style="color:#ff0000;" th:object="${itemUpdateForm}" th:errors="*{name}"></span>
                       </div><br/><br/>
                     </div>
                     <div class="form-group form-margin">
                       <label  class="control-label col-sm-2">価格</label>
                       <div class="col-sm-6">
                         <input form="itemupdate" type="text" name="price" th:value="${item.getPrice()}" class="form-control" />
+                        <span style="color:#ff0000;" th:object="${itemUpdateForm}" th:errors="*{price}"></span>
                       </div>
                     </div>
                   </div>
@@ -52,6 +54,7 @@
               <br/><label >商品詳細</label>
               <textarea form="itemupdate" rows="14" name="detail" class="form-control" th:inline="text">[[${item.getDetail()}]]
               </textarea>
+              <span style="color:#ff0000;" th:object="${itemUpdateForm}" th:errors="*{detail}"></span>
             </div>
 
          <div class="col-md-3">

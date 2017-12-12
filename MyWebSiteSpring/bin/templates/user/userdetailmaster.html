@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <div th:include="head"></div>
+  <head>
+  <title>ユーザー情報</title>
+  </head>
+  <body>
+
+      <br/><br/><br/>
+
+    <!-- body -->
+    <div class="container">
+      <h1 align="center">ユーザー情報</h1>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div class="panel-body">
+
+
+                <label for="user-id" class="control-label col-sm-2">ログインID</label>
+                <p class=" static-padding" th:inline="text">
+                [[${user.getLoginId()}]]
+                </p>
+
+
+                <label for="user-name" class="control-label col-sm-2">ユーザ名</label>
+                <p class=" static-padding" th:inline="text">
+                 [[${user.getLoginId()}]]
+                </p>
+
+
+                <label for="continent" class="control-label col-sm-2">生年月日</label>
+                <p class=" static-padding" th:inline="text">
+                 [[${user.getFormatBirthDate()}]]
+                </p>
+
+
+                <label  class="control-label col-sm-2">住所</label>
+                <p class=" static-padding" th:inline="text">
+                  [[${user.getAddress()}]]
+                </p>
+
+
+                <label  class="control-label col-sm-2">保有ポイント</label>
+                <p class=" static-padding" th:inline="text">
+                [[${user.getUserPoint()}]]pt
+                </p>
+
+
+              <label  class="control-label col-sm-2">ほしい物リスト</label>
+              <p class=" static-padding" th:inline="text" th:if="${user.getIs_open()}">
+                公開
+              </p>
+              <p class=" static-padding" th:inline="text" th:unless="${user.getIs_open()}">
+                非公開
+              </p>
+              <div class="row">
+
+          </div>
+        </div>
+        </div>
+
+      </div>
+            <br/><br/>
+      <div class="col-xs-4">
+        <a href="/userlist">ユーザー一覧画面へ</a>
+      </div>
+      <br/><br/><br/>
+    </div>
+
+
+
+
+
+
+
+  </body>
+</html>
