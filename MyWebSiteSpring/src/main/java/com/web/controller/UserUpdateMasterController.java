@@ -56,7 +56,7 @@ public class UserUpdateMasterController {
 
 			attribute.addFlashAttribute("userActionMessage", "ユーザ情報を更新しました。");
 
-		    return "redirect:index";
+		    return "redirect:userlist";
 	    }
 
 	}

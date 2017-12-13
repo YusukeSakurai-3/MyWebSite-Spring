@@ -14,7 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.web.form.UserCreateForm;
@@ -40,8 +39,8 @@ public class User implements Serializable {
 	private Date updateDate;
 
 
-	@OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
-    @JoinColumn(name = "userId")
+	@OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL,orphanRemoval=true,mappedBy="userId")
+    //@JoinColumn(name = "userId") @JoinColumnだとdeletを実行できない
 	private List<Point> point;
 
 

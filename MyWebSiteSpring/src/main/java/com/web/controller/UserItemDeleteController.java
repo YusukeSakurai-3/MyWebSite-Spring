@@ -47,6 +47,7 @@ public class UserItemDeleteController {
 			List<Item> deleteItem = itemRepository.findById(Integer.parseInt(id));
 			System.out.println(deleteItem.get(0).getName());
 		}
+
 		//modelにセットする
 //		model.addAttribute("user",);
 		attribute.addFlashAttribute("listMessage", "選択された商品を削除しました");

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<div th:include="head"></div>
+<head></head>
+<title>ユーザー情報削除</title>
+<body>
+
+
+    <!-- body --><br/><br/><br/><br/>
+
+    <div class="container">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <p th:inline="text">ログインID:[[${user.getLoginId()}]]を本当に削除してもよろしいでしょうか。</p>
+
+
+          <div class="row">
+          <div class="col-sm-4 col-sm-offset-2">
+            <a class="btn btn-default form-submit" href="/userlist">Cancel</a>
+            </div>
+            <div class="col-sm-4 ">
+            <form th:action="@{/userDeleteMaster}" method="POST">
+            <input type="hidden" name="userId" th:value="${user.getId()}" />
+            <button class="btn btn-primary form-submit" type="submit" >OK</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xs-4">
+        <a href="/userlist">戻る</a>
+      </div>
+    </div>
+  </body>
+</html>
