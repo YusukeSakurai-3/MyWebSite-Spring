@@ -10,4 +10,6 @@ public interface ItemGetListRepository extends CrudRepository<ItemGetList, Long>
 
 	List<ItemGetList> findByUserId(int userId);
 
+	List<ItemGetList> findByItemIdAndUserId(int itemId, int userId);
+
 }

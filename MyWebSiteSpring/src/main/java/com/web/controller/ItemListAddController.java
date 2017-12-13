@@ -37,6 +37,8 @@ public class ItemListAddController {
 		ItemGetList getItem = new ItemGetList(user.getId(),itemId);
 		itemGetListRepository.save(getItem);
 
+		attribute.addFlashAttribute("listMessage", "ほしい物リストに商品を追加しました");
+
 
 	    return "redirect:itemgetlist";
 

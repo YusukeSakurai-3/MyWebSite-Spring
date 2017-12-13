@@ -33,6 +33,7 @@ public class User implements Serializable {
 	private Date birthDate;
 	private String address;
 	private String loginId;
+
 	private Boolean is_open;
 	private String password;
 	private Date createDate;

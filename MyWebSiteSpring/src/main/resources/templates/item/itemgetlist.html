@@ -6,11 +6,30 @@
 </head><br/><br/><br/><br/>
 <body>
 
-<h1 th:inline="text" align="center">[[${session.loginUser.name}]]さんのほしい物リスト</h1>
+     <h1 th:inline="text" align="center">[[${user.getName()}]]さんのほしい物リスト</h1>
+
+      <div th:if="${listMessage!=null}" class="alert alert-success" th:inline="text">[[${listMessage}]]</div>
+
+
 <br/><br/>
 
 
   <div class="container">
+    <div class="row">
+       <div class="col-sm-11">
+        <a  class=" btn btn-success col-sm-2" href="/userItemList">他の人のリストを見る</a>
+
+
+         <form action="/useritemdelete" id="listItemDelete"></form>
+         <button th:if="${session.loginUser.name.equals(user.getName())}" form="listItemDelete" class="btn btn-danger col-sm-2 col-sm-offset-1" type="submit">リストから削除する</button>
+       </div>
+       </div><br/>
+
+
+
+
+      <div th:if="${itemGetList.size()!=0}" th:inline="text">[[${user.getName()}]]さんの欲しいものは[[${itemGetList.size()}]]件です</div>
+      <div th:if="${itemGetList.size()==0}" th:inline="text">ほしい物リストに商品が登録されていません</div>
   	 <div class="row">
       <div class="col-md-3" th:each="item:${itemGetList}">
         <br/>
@@ -22,6 +41,10 @@
              <div class="card-content">
               <span class="card-title"><div th:text="${item.getName()}"/></span>
               <div th:inline="text">[[${item.getPrice()}]]円</div>
+              <div th:if="${session.loginUser.name.equals(user.getName())}">
+              <input  type="checkbox" form="listItemDelete" id="${item.getId()}" name="deleteItemIdList" th:value="${item.getId()}" />
+               <label for="${item.getId()}">削除</label>
+               </div>
             </div>
            </div>
           </div>

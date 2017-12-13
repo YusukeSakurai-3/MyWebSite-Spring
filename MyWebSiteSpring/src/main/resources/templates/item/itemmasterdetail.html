@@ -45,8 +45,8 @@
                    <td th:inline="text">[[${item.getFormatUpdateDate()}]]</td>
                    <td th:inline="text">[[${item.getBuyDetailList().size()}]]</td>
                  <td>
-                  <a th:if="${item.getBuyDetailList().size() == 0}" class="btn btn-success" href="/itemmasterupdate">更新</a>
-                  <a th:if="${item.getBuyDetailList().size() == 0}" class="btn btn-danger" href="/itemmasterdelete">削除</a>
+                  <a th:if="${item.getBuyDetailList().size() == 0}" class="btn btn-success" th:href="@{/itemmasterupdate(itemId=${item.getId()})}">更新</a>
+                  <a th:if="${item.getBuyDetailList().size() == 0}" class="btn btn-danger" th:href="@{/itemmasterdelete(itemId=${item.getId()})}">削除</a>
                   </td>
                </tr>
 

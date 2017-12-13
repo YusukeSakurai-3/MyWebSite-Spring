@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.web.model.User;
@@ -35,6 +36,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	Page<User> findByNameContains(String searchName, Pageable pageable);
 
 	User findById(int userId);
+
+	@Query("select u from User u WHERE u.is_open = True")
+	Page<User> findByIsOpenTrue(Pageable pageable);
 
 
 

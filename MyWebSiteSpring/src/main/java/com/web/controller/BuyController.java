@@ -47,7 +47,7 @@ public class BuyController {
 
 		}else {
 			//ポイント情報取得
-			Point point = pointRepository.findByUserId(user.getId());
+			List<Point> point = pointRepository.findByUserId(user.getId());
 
 			//配送方法取得
 			List<DeliveryMethod> deliveryMethodList = (List<DeliveryMethod>)deliveryMethodRepository.findAll();
@@ -55,7 +55,7 @@ public class BuyController {
 
 			model.addAttribute("deliveryMethodList", deliveryMethodList);
 			model.addAttribute("cart", cart);
-			model.addAttribute("point", point.getPoint());
+			model.addAttribute("point", point.get(0).getPoint());
 
 
 			return "buy/buy";

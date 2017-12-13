@@ -57,9 +57,7 @@
 					  <option th:selected="${review.getEvaluation() == 4}?'selected':'no'" value="4">4</option>
 					  <option th:selected="${review.getEvaluation() == 5}?'selected':'no'" value="5">5</option>
 					</select>
-              <textarea form="itemreview" rows="14" class="form-control" id="review" name="reviewText" th:inline="text">
-              [[${review.getReviewText()}]]
-              </textarea>
+              <textarea form="itemreview" rows="14" class="form-control" id="review" name="reviewText" th:inline="text">[[${review.getReviewText()}]]</textarea>
               <span style="color:#ff0000;" th:object="${itemReviewForm}" th:errors="*{reviewText}"></span>
 
 

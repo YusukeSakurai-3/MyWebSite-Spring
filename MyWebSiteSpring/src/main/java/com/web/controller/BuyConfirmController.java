@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,7 +49,7 @@ public class BuyConfirmController {
 		User user = (User) session.getAttribute("loginUser");
 		ArrayList<Item> cart = (ArrayList<Item>)session.getAttribute("cart");
 		//ポイント情報取得配送方法取得
-		Point userPoint = pointRepository.findByUserId(user.getId());
+		List<Point> userPoint = pointRepository.findByUserId(user.getId());
 
 
 		//選択された配送方法を取得
@@ -63,7 +64,7 @@ public class BuyConfirmController {
 		if(point > preTotalPrice) {
 			attribute.addFlashAttribute("buyErrorMessage", "ポイントが合計金額を上回っています");
 			return "redirect:/buy";
-		}else if(point > userPoint.getPoint()) {
+		}else if(point > userPoint.get(0).getPoint()) {
 			attribute.addFlashAttribute("buyErrorMessage", "ポイントが所持ポイントを上回っています");
 			return "redirect:/buy";
 		}
@@ -72,7 +73,7 @@ public class BuyConfirmController {
 
 		//購入完了時使用(point,buyData)
 		Buy buyData = new Buy(user.getId(),totalPrice,deliveryMethod.getId(),point);
-		Point pointData = new Point(userPoint,user.getId(),point,preTotalPrice);
+		Point pointData = new Point(userPoint.get(0),user.getId(),point,preTotalPrice);
 		session.setAttribute("buyData",buyData);
 		session.setAttribute("pointData", pointData);
 

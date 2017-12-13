@@ -104,7 +104,7 @@ public class ItemMasterController {
 
 		model.addAttribute("searchWord",itemName);
 		model.addAttribute("page",page);
-		model.addAttribute("totalElements", totalElements);
+		model.addAttribute("itemPage",itemPage);
 		model.addAttribute("form",form);
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("pageNum",pageNum);

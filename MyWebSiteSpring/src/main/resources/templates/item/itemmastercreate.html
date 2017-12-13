@@ -16,9 +16,6 @@
         <a href="itemmaster">商品マスタ一覧へ</a>
       </div>
 
-  <div class="alert alert-danger" role="alert">itemCreateError</div>
-
-
 
       <br/><br/>
 
@@ -27,12 +24,14 @@
 
       	<div class="row">
       	   <div class="col-sm-6">
-                  <form method="POST" action="/itemmastercreate" id="itemcreate" class="form-horizontal" enctype="multipart/form-data">
+                  <form method="POST" th:action="@{/itemmastercreate}" id="itemcreate" th:object="${itemCreateForm}" class="form-horizontal" enctype="multipart/form-data">
                   </form>
                     <div class="form-group">
                       <label  class="control-label col-sm-2">商品名</label>
                       <div class="col-sm-6">
                         <input  type="text" form="itemcreate"  name="name" class="form-control"  value=""/>
+                        <span style="color:#ff0000;" th:object="${itemCreateForm}" th:errors="*{name}"></span>
+
                       </div>
                     </div>
                     <br/><br/>
@@ -41,6 +40,7 @@
                       <label  class="control-label col-sm-2">価格</label>
                       <div class="col-sm-6">
                         <input type="text" form="itemcreate" name="price" value="" class="form-control" />
+                        <span style="color:#ff0000;" th:object="${itemCreateForm}" th:errors="*{price}"></span>
                       </div>
                     </div>
             </div>
@@ -51,6 +51,7 @@
               <div class="col-sm-6">
               <label >商品詳細</label>
               <textarea rows="16" form="itemcreate" class="form-control" name="detail" ></textarea>
+              <span style="color:#ff0000;" th:object="${itemCreateForm}" th:errors="*{detail}"></span>
             </div>
 
          <div class="col-md-6">

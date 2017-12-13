@@ -8,7 +8,7 @@
       <br/><br/><br/>
     <!-- body -->
     <div class="container">
-    <div th:if="${msg!=null}" th:inline="text" class="alert alert-success" role="alert">[[${msg}]]</div>
+    <div th:if="${msg!=null}" th:inline="text" class="alert alert-danger" role="alert">[[${msg}]]</div>
 
 <h1 th:align="center">商品マスタ一覧</h1>
       <div class="text-right">
@@ -29,7 +29,7 @@
                 <div class="form-group">
                   <label for="name" class="control-label col-sm-2">商品名</label>
                   <div class="col-sm-6">
-                    <input type="text" name="searchWord" class="form-control"  value="" />
+                    <input type="text" name="searchWord" class="form-control"  th:value="${searchWord}" />
                   </div>
                 </div>
                 <!-- 価格 -->
@@ -37,13 +37,13 @@
                   <label for="continent" class="control-label col-sm-2">価格</label>
                   <div class="row">
                     <div class="col-sm-2">
-                      <input type="text" name="startPrice"  class="form-control" size="30" value=""/>
+                      <input type="text" name="startPrice"  class="form-control" size="30" th:value="${form.getStartPrice()}"/>
                     </div>
                     <div class="col-xs-1 text-center">
                       ~
                     </div>
                     <div class="col-sm-2">
-                      <input type="text" name="endPrice" class="form-control" value="" />
+                      <input type="text" name="endPrice" class="form-control" th:value="${form.getEndPrice()}" />
                     </div>
                 </div>
                 </div>
@@ -58,8 +58,9 @@
 
         <div class="table-responsive">
           <div th:inline="text">[[${pageNum + 1}]]ページ目</div>
-           <div th:inline="text">商品総数:[[${totalElements}]] 検索ワード:[[${searchWord}]]</div>
-           <table class="table table-striped table-bordered">
+         <div th:unless="${searchWord.equals('')}" th:inline="text"> 検索ワード:[[${searchWord}]]</div>
+           <div th:inline="text">商品総数:[[${itemPage.getTotalElements()}]]</div>
+           <table th:if="${itemPage.getTotalElements()!=0}" class="table table-striped table-bordered">
                <thead>
                  <tr>
                    <th>商品ID</th>
@@ -98,7 +99,7 @@
 
 
     <!--ページング処理  -->
-     <div th:with="s=${page.getPageStart()},t=${page.getPageEnd()}"  th:if="${TotalElements != 0}" class="text-center">
+     <div th:with="s=${page.getPageStart()},t=${page.getPageEnd()}"  th:if="${itemPage.getTotalElements() != 0}" class="text-center">
 		<ul class="pagination">
 		<li th:if="${pageNum == 0}"><a><font color="black">≪ 前へ</font></a></li>
 		<li th:if="${pageNum > 0}">
