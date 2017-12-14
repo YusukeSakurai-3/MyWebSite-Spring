@@ -42,6 +42,7 @@
               <span class="card-title"><div th:text="${item.getName()}"/></span>
               <div th:inline="text">[[${item.getPrice()}]]円</div>
               <div th:if="${session.loginUser.name.equals(user.getName())}">
+
               <input  type="checkbox" form="listItemDelete" id="${item.getId()}" name="deleteItemIdList" th:value="${item.getId()}" />
                <label for="${item.getId()}">削除</label>
                </div>

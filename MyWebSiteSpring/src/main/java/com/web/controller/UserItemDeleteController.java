@@ -35,18 +35,25 @@ public class UserItemDeleteController {
 	HttpSession session;
 
 	@RequestMapping(value = "/useritemdelete", method = RequestMethod.GET)
-	public String useritemdelete(@RequestParam(name = "deleteItemIdList") String[] deleteIdList,Model model,RedirectAttributes attribute ) {
+	public String useritemdelete(@RequestParam(name = "deleteItemIdList",required = false) String[] deleteIdList,Model model,RedirectAttributes attribute ) {
 
 
 		User loginUser = (User)session.getAttribute("loginUser");
 
-		for(String id:  deleteIdList) {
-			List<ItemGetList> item = itemGetListRepository.findByItemIdAndUserId(Integer.parseInt(id),loginUser.getId());
+        if(deleteIdList!=null) {
+			for(String id:  deleteIdList) {
+				List<ItemGetList> item = itemGetListRepository.findByItemIdAndUserId(Integer.parseInt(id),loginUser.getId());
 
-			itemGetListRepository.delete(item);
-			List<Item> deleteItem = itemRepository.findById(Integer.parseInt(id));
-			System.out.println(deleteItem.get(0).getName());
-		}
+				itemGetListRepository.delete(item);
+				List<Item> deleteItem = itemRepository.findById(Integer.parseInt(id));
+				System.out.println(deleteItem.get(0).getName());
+			}
+        }else {
+        	    attribute.addFlashAttribute("listMessage", "商品が選択されていません");
+        	    return "redirect:itemgetlist";
+
+        }
+
 
 		//modelにセットする
 //		model.addAttribute("user",);
